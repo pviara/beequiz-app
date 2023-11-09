@@ -5,7 +5,7 @@ import { SignInForm } from './sign-in-form';
 @Component({
     selector: 'sign-in',
     templateUrl: './sign-in.component.html',
-    styleUrls: ['./sign-in.component.scss'],
+    styleUrls: ['../forms.styles.scss', './sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
     signInForm!: FormGroup<SignInForm>;

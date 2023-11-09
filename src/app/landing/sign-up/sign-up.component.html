@@ -1,3 +1,28 @@
 <div class="container">
-    <h1>Sign Up</h1>
+    <h2 class="bold">Créer son compte</h2>
+    <form
+        [formGroup]="signUpForm"
+        (ngSubmit)="onSignUp(signUpForm)">
+        <input
+            formControlName="username"
+            type="text"
+            placeholder="Identifiant" />
+        
+        <input
+            formControlName="password"
+            type="password"
+            placeholder="●●●●●●●●●●●" />
+
+        <button
+            class="primary"
+            type="submit">
+            Créer un compte
+        </button>
+        
+        <a routerLink="..">
+            <button>
+                Retour
+            </button>
+        </a>
+    </form>
 </div>
