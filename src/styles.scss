@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'regular';
+    src: url('./assets/fonts/KumbhSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'bold';
+    src: url('./assets/fonts/KumbhSans-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'extra-bold';
+    src: url('./assets/fonts/KumbhSans-ExtraBold.ttf');
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+
+    font-family: 'regular';
+    font-weight: normal;
+}

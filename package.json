@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "format": "prettier --write \"**/*.{js,ts}\"",
+    "format": "prettier --write \"**/*.{js,ts,scss}\"",
     "test": "jest --passWithNoTests"
   },
   "private": true,
