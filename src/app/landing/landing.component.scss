@@ -1,10 +1,11 @@
 .container {
-    padding-top: 10%;
-    padding-left: 5%;
+    height: 100%;
+
+    overflow: hidden;
 
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    justify-content: space-between;
 
     .header {
         display: flex;
@@ -21,5 +22,12 @@
 
             font-size: 2.3rem;
         }
+    }
+
+    .header,
+    .content {
+        padding-top: 10%;
+        padding-left: 6%;
+        padding-right: 6%;
     }
 }

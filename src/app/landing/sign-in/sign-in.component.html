@@ -1,3 +1,31 @@
 <div class="container">
-    <!-- <h1>Sign In</h1> -->
+    <p>
+        L'application de quiz <span class="bold">intelligente</span>
+        avec des questions générées <span class="bold">par une IA</span>
+    </p>
+    <form
+        [formGroup]="signInForm"
+        (ngSubmit)="onSignIn(signInForm)">
+        <input
+            formControlName="username"
+            type="text"
+            placeholder="Identifiant" />
+        
+        <input
+            formControlName="password"
+            type="password"
+            placeholder="●●●●●●●●●●●" />
+
+        <button
+            class="primary"
+            type="submit">
+            Se Connecter
+        </button>
+        
+        <a routerLink="sign-up">
+            <button>
+                Créer un compte
+            </button>
+        </a>
+    </form>
 </div>

@@ -9,12 +9,21 @@
 }
 
 @font-face {
+    font-family: 'semi-bold';
+    src: url('./assets/fonts/KumbhSans-SemiBold.ttf');
+}
+
+@font-face {
     font-family: 'extra-bold';
     src: url('./assets/fonts/KumbhSans-ExtraBold.ttf');
 }
 
 html {
     scroll-behavior: smooth;
+}
+
+body {
+    height: 100vh;
 }
 
 * {
@@ -32,4 +41,35 @@ p {
 
 .bold {
     font-family: 'bold';
+}
+
+button {
+    width: 100%;
+
+    border-radius: 2rem;
+    border: none;
+
+    padding: 1rem;
+
+    font-size: 1.1rem;
+    background: rgb(37, 44, 45);
+    background: linear-gradient(
+        180deg,
+        rgba(37, 44, 45, 1) 0%,
+        rgba(54, 62, 67, 1) 100%
+    );
+
+    font-family: 'semi-bold';
+    color: #fff;
+
+    &.primary {
+        background: rgb(254, 205, 31);
+        background: linear-gradient(
+            180deg,
+            rgba(254, 205, 31, 1) 0%,
+            rgba(254, 178, 31, 1) 100%
+        );
+
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+    }
 }
