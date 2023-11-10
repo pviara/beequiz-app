@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SignUpForm } from './sign-up-form';
-import { UserService } from '../../core/user.service';
-import { User } from '../../core/user';
+import { SignUpForm } from './model/sign-up-form';
+import { UserService } from '../../core/services/user.service';
+import { User } from '../../core/model/user';
 
 @Component({
     selector: 'sign-up',

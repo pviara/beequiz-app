@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { WelcomeService } from '../core/welcome.service';
+import { WelcomeService } from '../core/services/welcome.service';
 
 @Component({
     selector: 'welcome',

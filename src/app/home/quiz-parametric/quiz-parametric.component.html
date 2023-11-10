@@ -1,0 +1,10 @@
+<div class="container">
+    <ng-container *ngIf="haveQuizThemesBeenFetched(); else loading">
+        <h2 class="bold">Choisir un thème</h2>
+        {{ quizThemes | json }}
+    </ng-container>
+    
+    <ng-template #loading>
+        <app-spinner></app-spinner>
+    </ng-template>
+</div>

@@ -1,9 +1,9 @@
-import { AuthService } from '../../core/auth.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { SignInForm } from './sign-in-form';
-import { User } from '../../core/user';
+import { SignInForm } from './model/sign-in-form';
+import { User } from '../../core/model/user';
 
 @Component({
     selector: 'sign-in',
