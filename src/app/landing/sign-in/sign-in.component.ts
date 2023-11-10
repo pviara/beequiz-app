@@ -47,7 +47,7 @@ export class SignInComponent implements OnInit {
                 userToAuthenticate.username,
                 userToAuthenticate.password,
             );
-            this.router.navigate(['../home']);
+            this.router.navigate(['../welcome']);
         } catch (error: any) {
             this.errorMessage = error.message;
         }

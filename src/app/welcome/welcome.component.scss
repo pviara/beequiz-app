@@ -1,0 +1,113 @@
+.container {
+    height: 100%;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    .top {
+        flex: 3;
+
+        background-color: #feb21f;
+
+        .header {
+            display: flex;
+            align-items: center;
+
+            user-select: none;
+
+            .logo {
+                max-width: 3.5rem;
+            }
+
+            .title {
+                margin-left: 0.5rem;
+
+                font-size: 2.3rem;
+            }
+        }
+
+        .content {
+            margin-top: 1rem;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3rem;
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            p {
+                font-size: 1.6rem;
+                text-align: center;
+            }
+
+            h2,
+            p {
+                color: #fff;
+            }
+        }
+
+        .header,
+        .content {
+            padding-top: 10%;
+            padding-left: 6%;
+            padding-right: 6%;
+        }
+    }
+
+    .bottom {
+        flex: 2;
+
+        margin-bottom: 2rem;
+
+        .content {
+            padding-top: 10%;
+            padding-left: 6%;
+            padding-right: 6%;
+
+            position: relative;
+
+            .emojis {
+                p {
+                    position: absolute;
+
+                    font-size: 2rem;
+                }
+
+                .emoji-1 {
+                    top: -1rem;
+                    left: 4rem;
+                    transform: rotate(110deg);
+                }
+
+                .emoji-2 {
+                    bottom: -4rem;
+                    left: 5rem;
+                    transform: rotate(-26deg);
+                }
+
+                .emoji-3 {
+                    bottom: -3.2rem;
+                    left: 12rem;
+                    transform: rotate(43deg);
+                }
+
+                .emoji-4 {
+                    top: -0.8rem;
+                    left: 14rem;
+                    transform: rotate(-34deg);
+                }
+
+                .emoji-5 {
+                    top: -2.2rem;
+                    right: 2rem;
+                    transform: rotate(28deg);
+                }
+            }
+        }
+    }
+}
