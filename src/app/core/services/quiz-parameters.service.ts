@@ -4,7 +4,7 @@ import { QuizTheme } from '../model/quiz-theme';
 @Injectable({
     providedIn: 'root',
 })
-export class QuizThemeService {
+export class QuizParametersService {
     private quizThemes: QuizTheme[] = [
         new QuizTheme(0, 'sport'),
         new QuizTheme(1, 'music'),
@@ -12,7 +12,15 @@ export class QuizThemeService {
         new QuizTheme(3, 'geography'),
     ];
 
-    getAllQuizThemes(): QuizTheme[] {
-        return this.quizThemes;
+    getAllQuizThemes(): Promise<QuizTheme[]> {
+        return new Promise<QuizTheme[]>((resolve) => {
+            setTimeout(() => {
+                resolve(this.quizThemes);
+            }, 1000);
+        });
+    }
+
+    getAllQuizNumberOfQuestions(): number[] {
+        return [5, 10, 15, 20];
     }
 }

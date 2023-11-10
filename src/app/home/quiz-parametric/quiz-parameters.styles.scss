@@ -1,0 +1,10 @@
+.container {
+    &.selected {
+        background: rgb(254, 205, 31);
+        background: linear-gradient(
+            180deg,
+            rgba(254, 205, 31, 1) 0%,
+            rgba(254, 178, 31, 1) 100%
+        );
+    }
+}
