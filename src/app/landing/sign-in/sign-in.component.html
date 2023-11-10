@@ -4,36 +4,38 @@
         avec des questions générées <span class="bold">par une IA</span>
     </p>
     
-    <ng-container *ngIf="errorMessage">
-        <p class="error">
-            {{ errorMessage }}
-        </p>
-    </ng-container>
-
-    <form
-        [formGroup]="signInForm"
-        (ngSubmit)="onSignIn(signInForm)">
-        <input
-            formControlName="username"
-            type="text"
-            placeholder="Identifiant" />
-        
-        <input
-            formControlName="password"
-            type="password"
-            placeholder="●●●●●●●●●●●" />
-
-        <button
-            type="submit"
-            [disabled]="signInForm.invalid"
-            [ngClass]="signInForm.invalid ? 'disabled' : 'primary'">
-            Se Connecter
-        </button>
-        
-        <a routerLink="sign-up">
-            <button>
-                Créer un compte
+    <div class="form">
+        <ng-container *ngIf="errorMessage">
+            <p class="error">
+                {{ errorMessage }}
+            </p>
+        </ng-container>
+    
+        <form
+            [formGroup]="signInForm"
+            (ngSubmit)="onSignIn(signInForm)">
+            <input
+                formControlName="username"
+                type="text"
+                placeholder="Identifiant" />
+            
+            <input
+                formControlName="password"
+                type="password"
+                placeholder="●●●●●●●●●●●" />
+    
+            <button
+                type="submit"
+                [disabled]="signInForm.invalid"
+                [ngClass]="signInForm.invalid ? 'disabled' : 'primary'">
+                Se Connecter
             </button>
-        </a>
-    </form>
+            
+            <a routerLink="sign-up">
+                <button>
+                    Créer un compte
+                </button>
+            </a>
+        </form>
+    </div>
 </div>
