@@ -1,5 +1,12 @@
 <div class="container">
     <h2 class="bold">Créer son compte</h2>
+    
+    <ng-container *ngIf="errorMessage">
+        <p class="error">
+            {{ errorMessage }}
+        </p>
+    </ng-container>
+
     <form
         [formGroup]="signUpForm"
         (ngSubmit)="onSignUp(signUpForm)">
@@ -14,8 +21,9 @@
             placeholder="●●●●●●●●●●●" />
 
         <button
-            class="primary"
-            type="submit">
+            type="submit"
+            [disabled]="signUpForm.invalid"
+            [ngClass]="signUpForm.invalid ? 'disabled' : 'primary'">
             Créer un compte
         </button>
         

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SignUpForm } from './sign-up-form';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UserService } from '../../core/user.service';
+import { User } from '../../core/user';
 
 @Component({
     selector: 'sign-up',
@@ -8,18 +11,38 @@ import { FormBuilder, FormGroup } from '@angular/forms';
     styleUrls: ['../forms.styles.scss', './sign-up.component.scss'],
 })
 export class SignUpComponent implements OnInit {
+    errorMessage = '';
+
     signUpForm!: FormGroup<SignUpForm>;
 
-    constructor(private formBuilder: FormBuilder) {}
+    constructor(
+        private formBuilder: FormBuilder,
+        private router: Router,
+        private userService: UserService,
+    ) {}
 
     ngOnInit(): void {
         this.signUpForm = this.formBuilder.nonNullable.group({
-            username: this.formBuilder.nonNullable.control(''),
-            password: this.formBuilder.nonNullable.control(''),
+            username: this.formBuilder.nonNullable.control('', [
+                Validators.required,
+            ]),
+            password: this.formBuilder.nonNullable.control('', [
+                Validators.required,
+            ]),
         });
     }
 
     onSignUp(form: FormGroup<SignUpForm>): void {
-        console.log(form.value);
+        if (form.invalid || !form.value.username || !form.value.password) {
+            return;
+        }
+
+        const userToAdd = new User(form.value.username, form.value.password);
+        try {
+            this.userService.add(userToAdd);
+            this.router.navigate(['..']);
+        } catch (error: any) {
+            this.errorMessage = error.message;
+        }
     }
 }

@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { LandingComponent } from './landing.component';
 import { landingRoutes } from './landing.routes';
 import { NgModule } from '@angular/core';
@@ -8,7 +9,11 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
     declarations: [LandingComponent, SignInComponent, SignUpComponent],
-    imports: [ReactiveFormsModule, RouterModule.forChild(landingRoutes)],
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        RouterModule.forChild(landingRoutes),
+    ],
     exports: [RouterModule],
 })
 export class LandingModule {}

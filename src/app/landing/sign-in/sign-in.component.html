@@ -1,8 +1,15 @@
 <div class="container">
-    <p>
+    <p class="intro">
         L'application de quiz <span class="bold">intelligente</span>
         avec des questions générées <span class="bold">par une IA</span>
     </p>
+    
+    <ng-container *ngIf="errorMessage">
+        <p class="error">
+            {{ errorMessage }}
+        </p>
+    </ng-container>
+
     <form
         [formGroup]="signInForm"
         (ngSubmit)="onSignIn(signInForm)">
@@ -17,8 +24,9 @@
             placeholder="●●●●●●●●●●●" />
 
         <button
-            class="primary"
-            type="submit">
+            type="submit"
+            [disabled]="signInForm.invalid"
+            [ngClass]="signInForm.invalid ? 'disabled' : 'primary'">
             Se Connecter
         </button>
         
