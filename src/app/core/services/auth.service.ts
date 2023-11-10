@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { User } from '../model/user';
-import { WelcomeService } from './welcome.service';
 
 @Injectable({
     providedIn: 'root',
@@ -9,7 +9,10 @@ import { WelcomeService } from './welcome.service';
 export class AuthService {
     authenticatedUser?: User;
 
-    constructor(private userService: UserService) {}
+    constructor(
+        private router: Router,
+        private userService: UserService,
+    ) {}
 
     authenticate(username: string, password: string): void {
         const errorMessage = 'Mauvais identifiant et/ou mot de passe.';
@@ -32,6 +35,6 @@ export class AuthService {
 
     logout(): void {
         this.authenticatedUser = undefined;
-        console.log('logged out user', this.authenticatedUser);
+        this.router.navigate(['.'], { queryParams: { logout: true } });
     }
 }

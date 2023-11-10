@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from '../core/services/auth.service';
 import { Component } from '@angular/core';
 
@@ -9,7 +10,7 @@ import { Component } from '@angular/core';
 export class HomeComponent {
     constructor(private authService: AuthService) {}
 
-    logout(): void {
+    launchLogout(): void {
         this.authService.logout();
     }
 }
