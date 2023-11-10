@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { UserService } from './user.service';
+import { User } from './user';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
+    private authenticatedUser?: User;
+
     constructor(private userService: UserService) {}
 
     authenticate(username: string, password: string): void {
@@ -18,5 +21,11 @@ export class AuthService {
         if (existingUser.password !== password) {
             throw new Error(errorMessage);
         }
+
+        this.authenticatedUser = existingUser;
+    }
+
+    isAuthenticated(): boolean {
+        return new Boolean(this.authenticatedUser).valueOf();
     }
 }

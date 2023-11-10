@@ -1,6 +1,7 @@
 import { AuthService } from '../../core/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SignInForm } from './sign-in-form';
 import { User } from '../../core/user';
 
@@ -17,6 +18,7 @@ export class SignInComponent implements OnInit {
     constructor(
         private authService: AuthService,
         private formBuilder: FormBuilder,
+        private router: Router,
     ) {}
 
     ngOnInit(): void {
@@ -39,12 +41,13 @@ export class SignInComponent implements OnInit {
             form.value.username,
             form.value.password,
         );
+
         try {
             this.authService.authenticate(
                 userToAuthenticate.username,
                 userToAuthenticate.password,
             );
-            console.log(userToAuthenticate);
+            this.router.navigate(['../home']);
         } catch (error: any) {
             this.errorMessage = error.message;
         }
