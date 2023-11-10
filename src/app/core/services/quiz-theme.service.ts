@@ -7,7 +7,7 @@ import { QuizTheme } from '../model/quiz-theme';
 export class QuizThemeService {
     private quizThemes: QuizTheme[] = [
         new QuizTheme(0, 'sport'),
-        new QuizTheme(1, 'history'),
+        new QuizTheme(1, 'music'),
         new QuizTheme(2, 'cinema'),
         new QuizTheme(3, 'geography'),
     ];

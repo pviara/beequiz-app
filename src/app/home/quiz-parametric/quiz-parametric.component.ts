@@ -17,6 +17,6 @@ export class QuizParametricComponent implements OnInit {
     }
 
     haveQuizThemesBeenFetched(): boolean {
-        return false;
+        return new Boolean(this.quizThemes).valueOf();
     }
 }
