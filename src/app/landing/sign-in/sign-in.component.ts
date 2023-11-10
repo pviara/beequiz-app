@@ -11,6 +11,8 @@ import { User } from '../../core/model/user';
     styleUrls: ['../forms.styles.scss', './sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
+    signedInMessage = '';
+
     errorMessage = '';
 
     signInForm!: FormGroup<SignInForm>;
@@ -47,7 +49,12 @@ export class SignInComponent implements OnInit {
                 userToAuthenticate.username,
                 userToAuthenticate.password,
             );
-            this.router.navigate(['../welcome']);
+
+            this.signedInMessage = 'Vous êtes connecté·e !';
+
+            setTimeout(() => {
+                this.router.navigate(['../welcome']);
+            }, 2000);
         } catch (error: any) {
             this.errorMessage = error.message;
         }

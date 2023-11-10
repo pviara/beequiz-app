@@ -86,3 +86,35 @@ button {
         );
     }
 }
+
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+
+        animation-timing-function: ease-in-out;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+
+        animation-timing-function: ease-in-out;
+    }
+}
+
+@keyframes slideInFromTop {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+
+        animation-timing-function: ease-in-out;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+
+        animation-timing-function: ease-in-out;
+    }
+}

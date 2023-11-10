@@ -6,6 +6,9 @@
 
     .intro {
         font-size: 1.5rem;
+
+        animation-name: slideInFromBottom;
+        animation-duration: 0.7s;
     }
 
     .form {

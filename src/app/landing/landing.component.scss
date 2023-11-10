@@ -13,4 +13,14 @@
         padding-left: 6%;
         padding-right: 6%;
     }
+
+    .header {
+        animation-name: slideInFromTop;
+        animation-duration: 1s;
+    }
+
+    .footer {
+        animation-name: slideInFromBottom;
+        animation-duration: 1s;
+    }
 }

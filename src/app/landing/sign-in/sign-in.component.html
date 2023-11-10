@@ -10,6 +10,11 @@
                 {{ errorMessage }}
             </p>
         </ng-container>
+        <ng-container *ngIf="signedInMessage">
+            <p class="success">
+                {{ signedInMessage }}
+            </p>
+        </ng-container>
     
         <form
             [formGroup]="signInForm"
@@ -26,13 +31,15 @@
     
             <button
                 type="submit"
-                [disabled]="signInForm.invalid"
-                [ngClass]="signInForm.invalid ? 'disabled' : 'primary'">
+                [disabled]="signInForm.invalid || signedInMessage"
+                [ngClass]="signInForm.invalid || signedInMessage ? 'disabled' : 'primary'">
                 Se Connecter
             </button>
             
             <a routerLink="sign-up">
-                <button>
+                <button
+                    [ngClass]="signedInMessage ? 'disabled' : ''"
+                    [disabled]="signedInMessage">
                     Créer un compte
                 </button>
             </a>
