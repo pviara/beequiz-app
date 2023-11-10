@@ -3,6 +3,9 @@
     flex-direction: column;
     gap: 2rem;
 
+    animation-name: slideInFromBottom;
+    animation-duration: 0.7s;
+
     .parameters {
         h2 {
             margin-bottom: 1rem;

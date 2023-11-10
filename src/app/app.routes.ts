@@ -15,7 +15,7 @@ export const routes: Routes = [
     },
     {
         path: 'welcome',
-        canActivate: [welcomeGuard],
+        // canActivate: [welcomeGuard],
         component: WelcomeComponent,
     },
     {

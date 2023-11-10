@@ -16,7 +16,7 @@ export class QuizParametersService {
         return new Promise<QuizTheme[]>((resolve) => {
             setTimeout(() => {
                 resolve(this.quizThemes);
-            }, 1000);
+            }, 0);
         });
     }
 
