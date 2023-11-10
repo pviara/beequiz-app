@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { QuizParamsForm } from './model/quiz-params-form';
 import { QuizTheme } from '../../core/model/quiz-theme';
 import { QuizParametersService } from '../../core/services/quiz-parameters.service';
+import { QuizService } from '../../core/services/quiz-service';
 
 @Component({
     selector: 'quiz-parametric',
@@ -18,6 +19,7 @@ export class QuizParametricComponent implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private quizParametersService: QuizParametersService,
+        private quizService: QuizService,
     ) {}
 
     async ngOnInit(): Promise<void> {
@@ -53,6 +55,22 @@ export class QuizParametricComponent implements OnInit {
 
     isQuizThemeSelected({ id }: QuizTheme): boolean {
         return this.quizParamsForm.value.quizThemeId === id;
+    }
+
+    launchQuiz(): void {
+        if (
+            this.quizParamsForm.invalid ||
+            !this.quizParamsForm.value.quizThemeId ||
+            !this.quizParamsForm.value.quizNumberOfQuestions
+        ) {
+            return;
+        }
+
+        const createdQuiz = this.quizService.getQuizFrom(
+            this.quizParamsForm.value.quizThemeId,
+            this.quizParamsForm.value.quizNumberOfQuestions,
+        );
+        console.log(createdQuiz);
     }
 
     onNumberOfQuestionsSelect(numberOfQuestions: number): void {
