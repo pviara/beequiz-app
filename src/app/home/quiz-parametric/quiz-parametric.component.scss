@@ -1,26 +1,29 @@
 .container {
     display: flex;
     flex-direction: column;
+    gap: 2rem;
 
-    h2 {
-        margin-bottom: 1rem;
+    .parameters {
+        h2 {
+            margin-bottom: 1rem;
 
-        &:last-of-type {
-            margin-top: 2rem;
+            &:last-of-type {
+                margin-top: 2rem;
+            }
         }
-    }
 
-    .quiz-themes,
-    .quiz-number-of-questions {
-        display: flex;
-        flex-wrap: wrap;
-    }
+        .quiz-themes,
+        .quiz-number-of-questions {
+            display: flex;
+            flex-wrap: wrap;
+        }
 
-    .quiz-themes {
-        gap: 1.5rem;
-    }
+        .quiz-themes {
+            gap: 1.5rem;
+        }
 
-    .quiz-number-of-questions {
-        gap: 1rem;
+        .quiz-number-of-questions {
+            gap: 1rem;
+        }
     }
 }

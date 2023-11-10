@@ -1,6 +1,12 @@
 <div class="container">
     <div class="header">
         <app-header></app-header>
+        <button (click)="logout()">
+            <img
+                draggable="false"
+                src="../../assets/images/logout.png"
+            />
+        </button>
     </div>
     <div class="content">
         <router-outlet></router-outlet>

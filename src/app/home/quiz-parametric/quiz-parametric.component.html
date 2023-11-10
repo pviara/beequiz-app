@@ -1,31 +1,36 @@
 <div class="container">
     <ng-container *ngIf="haveAllDataBeenFetched(); else loading">
-        <h2 class="bold">Choisir un thème</h2>
+        <div class="parameters">
+            <h2 class="bold">Choisir un thème</h2>
 
-        <div class="quiz-themes">
-            <div
-                class="quiz-theme-parameter"
-                *ngFor="let parameter of quizThemes">
-                <quiz-theme
-                    [data]="parameter"
-                    [isSelected]="isQuizThemeSelected(parameter)"
-                    (selectedQuizTheme)="onQuizThemeSelect($event)">
-                </quiz-theme>
+            <div class="quiz-themes">
+                <div
+                    class="quiz-theme-parameter"
+                    *ngFor="let parameter of quizThemes">
+                    <quiz-theme
+                        [data]="parameter"
+                        [isSelected]="isQuizThemeSelected(parameter)"
+                        (selectedQuizTheme)="onQuizThemeSelect($event)">
+                    </quiz-theme>
+                </div>
+            </div>
+
+            <h2 class="bold">Nombre de questions</h2>
+            <div class="quiz-number-of-questions">
+                <div
+                    class="quiz-number-of-questions-parameter"
+                    *ngFor="let parameter of quizNumberOfQuestions">
+                    <quiz-number-of-questions
+                        [data]="parameter"
+                        [isSelected]="isNumberOfQuestionsSelected(parameter)"
+                        (selectedNumberOfQuestions)="onNumberOfQuestionsSelect($event)">
+                    </quiz-number-of-questions>
+                </div>
             </div>
         </div>
-
-        <h2 class="bold">Nombre de questions</h2>
-        <div class="quiz-number-of-questions">
-            <div
-                class="quiz-number-of-questions-parameter"
-                *ngFor="let parameter of quizNumberOfQuestions">
-                <quiz-number-of-questions
-                    [data]="parameter"
-                    [isSelected]="isNumberOfQuestionsSelected(parameter)"
-                    (selectedNumberOfQuestions)="onNumberOfQuestionsSelect($event)">
-                </quiz-number-of-questions>
-            </div>
-        </div>
+        <button class="primary">
+            C'est parti !
+        </button>
     </ng-container>
     
     <ng-template #loading>

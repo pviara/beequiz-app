@@ -29,4 +29,9 @@ export class AuthService {
     isAuthenticated(): boolean {
         return new Boolean(this.authenticatedUser).valueOf();
     }
+
+    logout(): void {
+        this.authenticatedUser = undefined;
+        console.log('logged out user', this.authenticatedUser);
+    }
 }
