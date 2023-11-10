@@ -14,7 +14,7 @@ export class WelcomeService {
         return new Boolean(this.welcomedUser).valueOf();
     }
 
-    welcomeUser(): void {
+    markUserAsWelcomed(): void {
         this.welcomedUser = this.authService.authenticatedUser;
     }
 }

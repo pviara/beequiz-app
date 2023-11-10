@@ -7,23 +7,6 @@
     flex-direction: column;
     justify-content: space-between;
 
-    .header {
-        display: flex;
-        align-items: center;
-
-        user-select: none;
-
-        .logo {
-            max-width: 3.5rem;
-        }
-
-        .title {
-            margin-left: 0.5rem;
-
-            font-size: 2.3rem;
-        }
-    }
-
     .header,
     .content {
         padding-top: 10%;

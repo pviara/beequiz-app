@@ -1,12 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 import { WelcomeService } from '../core/welcome.service';
 
 @Component({
     selector: 'welcome',
+    standalone: true,
+    imports: [SharedModule],
     templateUrl: './welcome.component.html',
     styleUrls: ['./welcome.component.scss'],
-    standalone: true,
 })
 export class WelcomeComponent {
     constructor(
@@ -15,7 +17,7 @@ export class WelcomeComponent {
     ) {}
 
     onNext(): void {
-        this.welcomeService.welcomeUser();
+        this.welcomeService.markUserAsWelcomed();
         this.router.navigate(['../home']);
     }
 }
