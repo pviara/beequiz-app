@@ -7,7 +7,8 @@ import { User } from '../model/user';
     providedIn: 'root',
 })
 export class AuthService {
-    authenticatedUser?: User;
+    // TODO replace by ?:
+    authenticatedUser: User | undefined = new User('reginald', 'access');
 
     constructor(
         private router: Router,
