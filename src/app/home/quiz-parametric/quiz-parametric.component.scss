@@ -3,10 +3,10 @@
     flex-direction: column;
     gap: 2rem;
 
-    animation-name: slideInFromBottom;
-    animation-duration: 0.7s;
-
     .parameters {
+        animation-name: slideInFromBottom;
+        animation-duration: 0.7s;
+
         h2 {
             margin-bottom: 1rem;
 
@@ -22,11 +22,19 @@
         }
 
         .quiz-themes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
             gap: 1.5rem;
         }
 
         .quiz-number-of-questions {
             gap: 1rem;
         }
+    }
+
+    button {
+        animation-name: slideInFromBottom;
+        animation-duration: 1s;
     }
 }

@@ -1,7 +1,7 @@
 export class Question {
     constructor(
         readonly id: number,
-        readonly text: string,
+        readonly label: string,
         readonly answers: Answer[],
     ) {}
 }
@@ -9,8 +9,8 @@ export class Question {
 export class Answer {
     constructor(
         readonly id: number,
-        readonly questionId: number,
-        readonly text: string,
+        readonly label: string,
+        readonly isQuestionAnswer?: true,
     ) {}
 }
 

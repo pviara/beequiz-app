@@ -21,6 +21,6 @@ export class QuizParametersService {
     }
 
     getAllQuizNumberOfQuestions(): number[] {
-        return [5, 10, 15, 20];
+        return [5, 10, 15];
     }
 }
