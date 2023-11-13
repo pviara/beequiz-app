@@ -50,6 +50,7 @@ export class SignInComponent implements OnInit {
                 userToAuthenticate.password,
             );
 
+            this.errorMessage = '';
             this.signedInMessage = 'Vous êtes connecté·e !';
 
             setTimeout(() => {

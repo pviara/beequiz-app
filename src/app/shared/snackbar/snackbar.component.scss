@@ -1,0 +1,21 @@
+.container {
+    .error {
+        background-color: #bf2222;
+    }
+
+    .success {
+        background-color: #399a2c;
+    }
+
+    .error,
+    .success {
+        border-radius: 0.5rem;
+
+        padding: 1rem;
+
+        color: #fff;
+
+        animation-name: slideInFromTop;
+        animation-duration: 0.7s;
+    }
+}

@@ -1,11 +1,7 @@
 <div class="container">
     <h2 class="bold">Créer son compte</h2>
-    
-    <ng-container *ngIf="errorMessage">
-        <p class="error">
-            {{ errorMessage }}
-        </p>
-    </ng-container>
+
+    <snackbar [errorMessage]="errorMessage"></snackbar>
 
     <form
         [formGroup]="signUpForm"

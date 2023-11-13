@@ -5,16 +5,10 @@
     </p>
     
     <div class="form">
-        <ng-container *ngIf="errorMessage">
-            <p class="error">
-                {{ errorMessage }}
-            </p>
-        </ng-container>
-        <ng-container *ngIf="signedInMessage">
-            <p class="success">
-                {{ signedInMessage }}
-            </p>
-        </ng-container>
+        <snackbar
+            [errorMessage]="errorMessage"
+            [successMessage]="signedInMessage">
+        </snackbar>
     
         <form
             [formGroup]="signInForm"

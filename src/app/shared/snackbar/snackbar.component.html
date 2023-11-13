@@ -1,0 +1,14 @@
+<div class="container">
+    <ng-container *ngIf="mustAnyMessageBeDisplayed()">
+        <ng-container *ngIf="errorMessage; else success;">
+            <p class="error">
+                {{ errorMessage }}
+            </p>
+        </ng-container>
+        <ng-template #success>
+            <p class="success">
+                {{ successMessage }}
+            </p>
+        </ng-template>
+    </ng-container>
+</div>
