@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Quiz } from '../../core/model/quiz';
-import { QuizService } from '../../core/services/quiz-service';
+import { NavigationService } from '../core/services/navigation.service';
+import { Quiz } from '../core/model/quiz';
+import { QuizService } from '../core/services/quiz-service';
 
 @Component({
     selector: 'quiz',
@@ -10,9 +11,14 @@ import { QuizService } from '../../core/services/quiz-service';
 export class QuizComponent implements OnInit {
     quiz!: Quiz;
 
-    constructor(private quizService: QuizService) {}
+    constructor(
+        private navigationService: NavigationService,
+        private quizService: QuizService,
+    ) {}
 
     ngOnInit(): void {
+        this.navigationService.activateQuizQuitPrevention();
+
         this.quizService.generatedQuiz.subscribe((quiz) => {
             if (quiz) {
                 this.quiz = quiz;
