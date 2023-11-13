@@ -5,7 +5,9 @@ import { User } from '../model/user';
     providedIn: 'root',
 })
 export class UserService {
-    private registeredUsers: User[] = [];
+    private registeredUsers: User[] = [
+        // new User('reginald', 'access'), // TODO remove this
+    ];
 
     add(user: User): void {
         const existingUser = this.findByUsername(user.username);

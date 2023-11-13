@@ -1,6 +1,6 @@
+import { Answer, Quiz } from '../core/model/quiz';
 import { Component, OnInit } from '@angular/core';
 import { NavigationService } from '../core/services/navigation.service';
-import { Quiz } from '../core/model/quiz';
 import { QuizService } from '../core/services/quiz-service';
 
 @Component({
@@ -9,6 +9,8 @@ import { QuizService } from '../core/services/quiz-service';
     styleUrls: ['./quiz.component.scss'],
 })
 export class QuizComponent implements OnInit {
+    immediateScore?: 0 | 1;
+
     quiz!: Quiz;
 
     constructor(
@@ -28,5 +30,13 @@ export class QuizComponent implements OnInit {
 
     hasQuizBeenLoaded(): boolean {
         return new Boolean(this.quiz).valueOf();
+    }
+
+    onConfirmedAnswer(answer: Answer): void {
+        this.immediateScore = this.quiz.scoreAnswer(answer);
+    }
+
+    onGoToNextQuestion(): void {
+        this.quiz.goToNextQuestion();
     }
 }

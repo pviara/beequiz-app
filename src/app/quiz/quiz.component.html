@@ -9,14 +9,17 @@
         </button>
     </div>
     <div class="content">
-        <ng-container *ngIf="hasQuizBeenLoaded(); else loading;">
-            {{ quiz | json }}
-        </ng-container>
+        <quiz-step
+            *ngIf="hasQuizBeenLoaded(); else loading;"
+            [answers]="quiz.getCurrentQuestionAnswers()"
+            [immediateScore]="immediateScore"
+            [questionLabel]="quiz.getCurrentQuestionLabel()"
+            (confirmedAnswer)="onConfirmedAnswer($event)"
+            (nextQuestionAsked)="onGoToNextQuestion()">
+        </quiz-step>
+        
         <ng-template #loading>
             <app-spinner></app-spinner>
         </ng-template>
-    </div>
-    <div class="footer">
-        <app-footer></app-footer>
     </div>
 </div>

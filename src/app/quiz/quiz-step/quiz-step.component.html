@@ -1,0 +1,38 @@
+<div class="container">
+    <h2 class="semi-bold">
+        {{ questionLabel }}
+    </h2>
+    <div class="answers">
+        <div
+            class="answer"
+            *ngFor="let answer of answers;"
+            [ngClass]="isSelected(answer.id) ? 'selected' : ''"
+            (click)="selectAnswer(answer.id)">
+            {{ answer.label }}
+        </div>
+    </div>
+    <div class="actions">
+        <button
+            [disabled]="mustConfirmButtonBeDisabled()"
+            [ngClass]="mustConfirmButtonBeDisabled() ? 'disabled' : 'primary'"
+            (click)="confirmAnswer()">
+            <ng-container *ngIf="hasScoreBeenMade(); else noScoreMade;">
+                <ng-container *ngIf="isPositiveScore(); else badScore;">
+                    👏 Bravo !
+                </ng-container>
+                <ng-template #badScore>
+                    ❌ Raté !
+                </ng-template>
+            </ng-container>
+            <ng-template #noScoreMade>
+                Valider
+            </ng-template>
+        </button>
+        <button
+            class="primary"
+            *ngIf="hasScoreBeenMade()"
+            (click)="goToNextQuestion()">
+            Suivant
+        </button>
+    </div>
+</div>

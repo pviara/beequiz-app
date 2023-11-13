@@ -1,5 +1,5 @@
 import { Answer, Question, Quiz } from '../model/quiz';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({
