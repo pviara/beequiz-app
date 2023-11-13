@@ -77,7 +77,7 @@ export class QuizParametricComponent implements OnInit {
             quizNumberOfQuestions,
         );
 
-        this.router.navigate(['/home/play'], { replaceUrl: true });
+        this.router.navigate(['/play'], { replaceUrl: true });
     }
 
     private validateQuizParamsForm(): ValidatedQuizParamsFormValues {

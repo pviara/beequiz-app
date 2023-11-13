@@ -19,7 +19,7 @@ export class NavigationService {
                 const { hasQuizBeenRequested } = this.quizService;
 
                 if (hasQuizBeenRequested && userWantsToEscapeQuiz) {
-                    const quizRoutePath = '/home/play';
+                    const quizRoutePath = '/play';
                     this.router.navigate([quizRoutePath]);
                 }
             }

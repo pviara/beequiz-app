@@ -27,7 +27,7 @@ export const homeGuard: CanActivateFn = () => {
     }
 
     if (quizService.hasQuizBeenRequested) {
-        router.navigate(['/home/play'], { state: { bypassHomeGuard: true } });
+        router.navigate(['/play'], { state: { bypassHomeGuard: true } });
         return of(true);
     }
 

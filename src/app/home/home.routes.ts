@@ -15,11 +15,6 @@ export const homeRoutes: Routes = [
                 path: '',
                 component: QuizParametricComponent,
             },
-            {
-                path: 'play',
-                canActivate: [quizGuard],
-                component: QuizComponent,
-            },
         ],
     },
 ];

@@ -1,0 +1,34 @@
+.container {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    overflow: hidden;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+
+        button {
+            max-width: 3.5rem;
+
+            border-radius: 1rem;
+
+            animation-name: fadeIn;
+            animation-duration: 1s;
+        }
+    }
+
+    .header,
+    .content {
+        padding-top: 10%;
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+
+    .content {
+        padding-bottom: 10%;
+    }
+}
