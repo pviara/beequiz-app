@@ -4,6 +4,7 @@ import { QuizParamsForm } from './model/quiz-params-form';
 import { QuizTheme } from '../../core/model/quiz-theme';
 import { QuizParametersService } from '../../core/services/quiz-parameters.service';
 import { QuizService } from '../../core/services/quiz-service';
+import { Router } from '@angular/router';
 
 type ValidatedQuizParamsFormValues = {
     quizThemeId: number;
@@ -25,6 +26,7 @@ export class QuizParametricComponent implements OnInit {
         private formBuilder: FormBuilder,
         private quizParametersService: QuizParametersService,
         private quizService: QuizService,
+        private router: Router,
     ) {}
 
     async ngOnInit(): Promise<void> {
@@ -70,10 +72,12 @@ export class QuizParametricComponent implements OnInit {
         const { quizThemeId, quizNumberOfQuestions } =
             this.validateQuizParamsForm();
 
-        const createdQuiz = this.quizService.generateQuiz(
+        this.quizService.launchQuizGeneration(
             quizThemeId,
             quizNumberOfQuestions,
         );
+
+        this.router.navigate(['/home/play']);
     }
 
     private validateQuizParamsForm(): ValidatedQuizParamsFormValues {

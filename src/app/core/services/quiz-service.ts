@@ -9,10 +9,10 @@ export class QuizService {
     hasQuizBeenRequested = false;
 
     generatedQuiz = new BehaviorSubject<Quiz | null>(null);
-    
-    generateQuiz(quizThemeId: number, numberOfQuestions: number): void {
+
+    launchQuizGeneration(quizThemeId: number, numberOfQuestions: number): void {
         this.markQuizAsRequested();
-        
+
         setTimeout(() => {
             this.generatedQuiz.next(
                 new Quiz(
@@ -69,12 +69,12 @@ export class QuizService {
                         ),
                     ],
                     [],
-                )
+                ),
             );
 
             // TODO | Don't forget to reset quiz request state to prevent the user to visit
             // TODO | quiz component page while no quiz generation has been requested.
-            // TODO --- 
+            // TODO ---
             // TODO | But don't do it here at this line! Rather from the quiz component itself.
             // TODO | Otherwise user won't be able to access quiz component immediatly which
             // TODO | makes no sense.
