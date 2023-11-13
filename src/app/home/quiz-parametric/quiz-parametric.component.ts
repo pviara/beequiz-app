@@ -5,6 +5,11 @@ import { QuizTheme } from '../../core/model/quiz-theme';
 import { QuizParametersService } from '../../core/services/quiz-parameters.service';
 import { QuizService } from '../../core/services/quiz-service';
 
+type ValidatedQuizParamsFormValues = {
+    quizThemeId: number;
+    quizNumberOfQuestions: number;
+};
+
 @Component({
     selector: 'quiz-parametric',
     templateUrl: './quiz-parametric.component.html',
@@ -30,11 +35,11 @@ export class QuizParametricComponent implements OnInit {
         this.quizParamsForm = this.formBuilder.nonNullable.group({
             quizThemeId: this.formBuilder.nonNullable.control(
                 this.quizThemes[0].id,
-                [Validators.required],
+                [Validators.min(0)],
             ),
             quizNumberOfQuestions: this.formBuilder.nonNullable.control(
                 this.quizNumberOfQuestions[0],
-                [Validators.required],
+                [Validators.min(this.quizNumberOfQuestions[0])],
             ),
         });
     }
@@ -58,19 +63,40 @@ export class QuizParametricComponent implements OnInit {
     }
 
     launchQuiz(): void {
-        if (
-            this.quizParamsForm.invalid ||
-            !this.quizParamsForm.value.quizThemeId ||
-            !this.quizParamsForm.value.quizNumberOfQuestions
-        ) {
+        if (this.quizParamsForm.invalid) {
             return;
         }
 
-        const createdQuiz = this.quizService.getQuizFrom(
-            this.quizParamsForm.value.quizThemeId,
-            this.quizParamsForm.value.quizNumberOfQuestions,
+        const { quizThemeId, quizNumberOfQuestions } =
+            this.validateQuizParamsForm();
+
+        const createdQuiz = this.quizService.generateQuiz(
+            quizThemeId,
+            quizNumberOfQuestions,
         );
-        console.log(createdQuiz);
+    }
+
+    private validateQuizParamsForm(): ValidatedQuizParamsFormValues {
+        const { quizThemeId, quizNumberOfQuestions } =
+            this.quizParamsForm.value;
+
+        const isQuizThemeIdInvalid =
+            quizThemeId === null || quizThemeId === undefined;
+
+        const minimumNumberOfQuestions = this.quizNumberOfQuestions[0];
+
+        const areQuizNbrQuestionsInvalid =
+            !quizNumberOfQuestions ||
+            quizNumberOfQuestions < minimumNumberOfQuestions;
+
+        if (isQuizThemeIdInvalid || areQuizNbrQuestionsInvalid) {
+            throw new Error("QuizParamsForm couldn't be validated properly.");
+        }
+
+        return {
+            quizThemeId,
+            quizNumberOfQuestions,
+        };
     }
 
     onNumberOfQuestionsSelect(numberOfQuestions: number): void {
