@@ -8,7 +8,8 @@ import { User } from '../model/user';
 })
 export class AuthService {
     // TODO replace by ?:
-    authenticatedUser: User | undefined = new User('reginald', 'access');
+    // authenticatedUser: User | undefined = new User('reginald', 'access');
+    authenticatedUser?: User;
 
     constructor(
         private router: Router,
