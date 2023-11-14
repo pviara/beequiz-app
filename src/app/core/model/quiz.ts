@@ -24,6 +24,10 @@ export class Quiz {
         readonly givenAnswers: Answer[],
     ) {}
 
+    formatCurrentStepPaginator(): string {
+        return `${this.currentQuestionIndex + 1}/${this.questions.length}`;
+    }
+
     getCurrentQuestionAnswers(): Answer[] {
         return this.getCurrentQuestion().answers;
     }

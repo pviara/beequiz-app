@@ -27,5 +27,17 @@
 
     .content {
         padding-bottom: 10%;
+
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+
+        h3 {
+            font-size: 2rem;
+            color: #989898;
+
+            animation-name: fadeIn;
+            animation-duration: 1s;
+        }
     }
 }

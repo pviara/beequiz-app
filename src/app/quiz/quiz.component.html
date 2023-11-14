@@ -9,14 +9,18 @@
         </button>
     </div>
     <div class="content">
-        <quiz-step
-            *ngIf="hasQuizBeenLoaded(); else loading;"
-            [answers]="quiz.getCurrentQuestionAnswers()"
-            [givenAnswerState]="givenAnswerState"
-            [questionLabel]="quiz.getCurrentQuestionLabel()"
-            (confirmedAnswer)="onConfirmedAnswer($event)"
-            (nextStepRequested)="onNextStepRequested()">
-        </quiz-step>
+        <ng-container *ngIf="hasQuizBeenLoaded(); else loading;">
+            <h3>
+                {{ quiz.formatCurrentStepPaginator() }}
+            </h3>
+            <quiz-step
+                [answers]="quiz.getCurrentQuestionAnswers()"
+                [givenAnswerState]="givenAnswerState"
+                [questionLabel]="quiz.getCurrentQuestionLabel()"
+                (confirmedAnswer)="onConfirmedAnswer($event)"
+                (nextStepRequested)="onNextStepRequested()">
+            </quiz-step>
+        </ng-container>
         
         <ng-template #loading>
             <app-spinner></app-spinner>
