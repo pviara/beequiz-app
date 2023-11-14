@@ -14,7 +14,7 @@ export class NavigationService {
         private router: Router,
     ) {}
 
-    activateQuizQuitPrevention(): void {
+    activateQuizQuittingPrevention(): void {
         this.subscribedEvents = this.router.events.subscribe((event) => {
             if (event instanceof ActivationStart) {
                 const activatedPath = event.snapshot.url[0]?.path;
@@ -29,7 +29,7 @@ export class NavigationService {
         });
     }
 
-    deactivateQuizQuitPrevention(): void {
+    deactivateQuizQuittingPrevention(): void {
         this.subscribedEvents.unsubscribe();
     }
 }

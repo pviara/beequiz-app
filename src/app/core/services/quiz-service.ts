@@ -14,6 +14,11 @@ export class QuizService {
         this.launchQuizGeneration(0, 0);
     }
 
+    killQuiz(): void {
+        this.generatedQuiz.next(null);
+        this.hasQuizBeenRequested = false;
+    }
+
     launchQuizGeneration(quizThemeId: number, numberOfQuestions: number): void {
         this.markQuizAsRequested();
 

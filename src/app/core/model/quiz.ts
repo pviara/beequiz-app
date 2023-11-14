@@ -21,11 +21,15 @@ export class Quiz {
 
     constructor(
         readonly questions: Question[],
-        readonly givenAnswers: Answer[],
+        readonly givenAnswers: number[],
     ) {}
 
     formatCurrentStepPaginator(): string {
         return `${this.currentQuestionIndex + 1}/${this.questions.length}`;
+    }
+
+    formatScoreMessage(): string {
+        return `${this.score}/${this.questions.length}`;
     }
 
     getCurrentQuestionAnswers(): Answer[] {
@@ -53,7 +57,37 @@ export class Quiz {
         return correctAnswer.id === answerId;
     }
 
+    isInProgress(): boolean {
+        return this.givenAnswers.length < this.questions.length;
+    }
+
+    isScoreBad(): boolean {
+        if (!this.hasQuizBeenCompleted()) {
+            return false;
+        }
+
+        return this.score < this.questions.length / 2;
+    }
+
+    isScoreGood(): boolean {
+        if (!this.hasQuizBeenCompleted()) {
+            return false;
+        }
+
+        return this.score > this.questions.length / 2;
+    }
+
+    isScoreMedium(): boolean {
+        if (!this.hasQuizBeenCompleted()) {
+            return false;
+        }
+
+        return this.score === this.questions.length / 2;
+    }
+
     handleScoreForAnswer(answerId: number): boolean {
+        this.givenAnswers.push(answerId);
+
         if (this.isGivenAnswerCorrect(answerId)) {
             this.increaseScore();
             return true;

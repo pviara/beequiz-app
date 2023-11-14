@@ -1,7 +1,7 @@
 <div class="container">
     <div class="header">
         <app-header></app-header>
-        <button>
+        <button (click)="exitQuiz()">
             <img
                 draggable="false"
                 src="../../../assets/images/exit.png"
@@ -9,20 +9,51 @@
         </button>
     </div>
     <div class="content">
-        <ng-container *ngIf="hasQuizBeenLoaded(); else loading;">
-            <h3>
-                {{ quiz.formatCurrentStepPaginator() }}
-            </h3>
-            <quiz-step
-                [answers]="quiz.getCurrentQuestionAnswers()"
-                [givenAnswerState]="givenAnswerState"
-                [questionLabel]="quiz.getCurrentQuestionLabel()"
-                (confirmedAnswer)="onConfirmedAnswer($event)"
-                (nextStepRequested)="onNextStepRequested()">
-            </quiz-step>
+        <ng-container *ngIf="hasQuizBeenLoaded(); else quizIsLoading;">
+            <ng-container *ngIf="quiz.isInProgress(); else quizIsFinished;">
+                <h3>
+                    {{ quiz.formatCurrentStepPaginator() }}
+                </h3>
+                <quiz-step
+                    [answers]="quiz.getCurrentQuestionAnswers()"
+                    [givenAnswerState]="givenAnswerState"
+                    [questionLabel]="quiz.getCurrentQuestionLabel()"
+                    (confirmedAnswer)="onConfirmedAnswer($event)"
+                    (nextStepRequested)="onNextStepRequested()">
+                </quiz-step>
+            </ng-container>
+
+            <ng-template #quizIsFinished>
+                <div class="results">
+                    <h1 class="bold">
+                        {{ quiz.isScoreBad() ? '😔 DOMMAGE...' : '' }}
+                        {{ quiz.isScoreGood() ? '🎉 BRAVO !' : '' }}
+                        {{ quiz.isScoreMedium() ? "👍 PAS MAL !" : '' }}
+                    </h1>
+                    <h1 class="bold">
+                        Vous avez obtenu la note de
+                        <span
+                            class="note"
+                            [ngClass]="{
+                                'good-score': quiz.isScoreGood(),
+                                'medium-score': quiz.isScoreMedium(),
+                                'bad-score': quiz.isScoreBad(),
+                            }">
+                            {{ quiz.formatScoreMessage() }}
+                        </span>
+                        au quiz !
+                    </h1>
+                    <p>
+                        Votre performance a bien évidemment été enregistrée...
+                    </p>
+                    <button (click)="exitQuiz()">
+                        Retour à l'accueil
+                    </button>
+                </div>
+            </ng-template>
         </ng-container>
         
-        <ng-template #loading>
+        <ng-template #quizIsLoading>
             <app-spinner></app-spinner>
         </ng-template>
     </div>

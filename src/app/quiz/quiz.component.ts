@@ -3,6 +3,7 @@ import { GivenAnswerState } from './quiz-step/model/given-answer-state';
 import { NavigationService } from '../core/services/navigation.service';
 import { Quiz } from '../core/model/quiz';
 import { QuizService } from '../core/services/quiz-service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'quiz',
@@ -20,20 +21,26 @@ export class QuizComponent implements OnDestroy, OnInit {
     constructor(
         private navigationService: NavigationService,
         private quizService: QuizService,
+        private router: Router,
     ) {}
 
     ngOnDestroy(): void {
-        this.navigationService.deactivateQuizQuitPrevention();
+        this.navigationService.deactivateQuizQuittingPrevention();
     }
 
     ngOnInit(): void {
-        this.navigationService.activateQuizQuitPrevention();
+        this.navigationService.activateQuizQuittingPrevention();
 
         this.quizService.generatedQuiz.subscribe((quiz) => {
             if (quiz) {
                 this.quiz = quiz;
             }
         });
+    }
+
+    exitQuiz(): void {
+        this.quizService.killQuiz();
+        this.router.navigate(['/home']);
     }
 
     hasQuizBeenLoaded(): boolean {
@@ -50,6 +57,11 @@ export class QuizComponent implements OnDestroy, OnInit {
     }
 
     onNextStepRequested(): void {
+        if (this.quiz.hasQuizBeenCompleted()) {
+            this.exitQuiz();
+            return;
+        }
+
         this.resetGivenAnswerState();
         this.quiz.goToNextQuestion();
     }
