@@ -10,9 +10,7 @@ export class QuizService {
 
     generatedQuiz = new BehaviorSubject<Quiz | null>(null);
 
-    constructor() {
-        this.launchQuizGeneration(0, 0);
-    }
+    constructor() {}
 
     killQuiz(): void {
         this.generatedQuiz.next(null);

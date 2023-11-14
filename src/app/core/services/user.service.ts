@@ -6,7 +6,7 @@ import { User } from '../model/user';
 })
 export class UserService {
     private registeredUsers: User[] = [
-        new User('reginald', 'access'), // TODO remove this
+        // new User('reginald', 'access'), // TODO remove this
     ];
 
     add(user: User): void {
