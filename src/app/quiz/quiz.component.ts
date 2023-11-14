@@ -56,6 +56,10 @@ export class QuizComponent implements OnDestroy, OnInit {
         };
     }
 
+    onExistQuizRequested(): void {
+        this.exitQuiz();
+    }
+
     onNextStepRequested(): void {
         if (this.quiz.hasQuizBeenCompleted()) {
             this.exitQuiz();

@@ -14,6 +14,25 @@ export class Answer {
     ) {}
 }
 
+export class QuizScoreEvaluation {
+    constructor(
+        readonly score: number,
+        readonly questionsLength: number,
+    ) {}
+
+    isScoreBad(): boolean {
+        return this.score < this.questionsLength / 2;
+    }
+
+    isScoreGood(): boolean {
+        return this.score > this.questionsLength / 2;
+    }
+
+    isScoreMedium(): boolean {
+        return this.score === this.questionsLength / 2;
+    }
+}
+
 export class Quiz {
     private currentQuestionIndex = 0;
 
@@ -40,6 +59,10 @@ export class Quiz {
         return this.getCurrentQuestion().label;
     }
 
+    getScoreEvaluation(): QuizScoreEvaluation {
+        return new QuizScoreEvaluation(this.score, this.questions.length);
+    }
+
     goToNextQuestion(): void {
         if (this.isCurrentQuestionTheLastOne()) {
             return;
@@ -59,30 +82,6 @@ export class Quiz {
 
     isInProgress(): boolean {
         return this.givenAnswers.length < this.questions.length;
-    }
-
-    isScoreBad(): boolean {
-        if (!this.hasQuizBeenCompleted()) {
-            return false;
-        }
-
-        return this.score < this.questions.length / 2;
-    }
-
-    isScoreGood(): boolean {
-        if (!this.hasQuizBeenCompleted()) {
-            return false;
-        }
-
-        return this.score > this.questions.length / 2;
-    }
-
-    isScoreMedium(): boolean {
-        if (!this.hasQuizBeenCompleted()) {
-            return false;
-        }
-
-        return this.score === this.questions.length / 2;
     }
 
     handleScoreForAnswer(answerId: number): boolean {

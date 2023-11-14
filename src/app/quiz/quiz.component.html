@@ -24,32 +24,11 @@
             </ng-container>
 
             <ng-template #quizIsFinished>
-                <div class="results">
-                    <h1 class="bold">
-                        {{ quiz.isScoreBad() ? '😔 DOMMAGE...' : '' }}
-                        {{ quiz.isScoreGood() ? '🎉 BRAVO !' : '' }}
-                        {{ quiz.isScoreMedium() ? "👍 PAS MAL !" : '' }}
-                    </h1>
-                    <h1 class="bold">
-                        Vous avez obtenu la note de
-                        <span
-                            class="note"
-                            [ngClass]="{
-                                'good-score': quiz.isScoreGood(),
-                                'medium-score': quiz.isScoreMedium(),
-                                'bad-score': quiz.isScoreBad(),
-                            }">
-                            {{ quiz.formatScoreMessage() }}
-                        </span>
-                        au quiz !
-                    </h1>
-                    <p>
-                        Votre performance a bien évidemment été enregistrée...
-                    </p>
-                    <button (click)="exitQuiz()">
-                        Retour à l'accueil
-                    </button>
-                </div>
+                <quiz-results
+                    [scoreEvaluation]="quiz.getScoreEvaluation()"
+                    [scoreMessage]="quiz.formatScoreMessage()"
+                    (exitQuizRequested)="onExistQuizRequested()">
+                </quiz-results>
             </ng-template>
         </ng-container>
         

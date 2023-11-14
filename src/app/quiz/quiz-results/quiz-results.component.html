@@ -1,0 +1,32 @@
+<div class="container">
+    <h1 class="bold">
+        <ng-container *ngIf="scoreEvaluation.isScoreBad();">
+            😔 DOMMAGE...
+        </ng-container>
+        <ng-container *ngIf="scoreEvaluation.isScoreGood();">
+            🎉 BRAVO !
+        </ng-container>
+        <ng-container *ngIf="scoreEvaluation.isScoreMedium();">
+            👍 PAS MAL !
+        </ng-container>
+    </h1>
+    <h1 class="bold">
+        Vous avez obtenu la note de
+        <span
+            class="note"
+            [ngClass]="{
+                'good-score': scoreEvaluation.isScoreGood(),
+                'medium-score': scoreEvaluation.isScoreMedium(),
+                'bad-score': scoreEvaluation.isScoreBad(),
+            }">
+            {{ scoreMessage }}
+        </span>
+        au quiz !
+    </h1>
+    <p>
+        Votre performance a bien évidemment été enregistrée...
+    </p>
+    <button (click)="exitQuiz()">
+        Retour à l'accueil
+    </button>
+</div>
