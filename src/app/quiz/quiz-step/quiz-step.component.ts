@@ -11,44 +11,18 @@ export class QuizStepComponent {
     answers!: Answer[];
 
     @Output()
-    confirmedAnswer = new EventEmitter<Answer>();
+    confirmedAnswer = new EventEmitter<number>();
 
     @Input()
-    immediateScore?: 0 | 1;
+    isGivenAnswerCorrect!: boolean;
 
     @Output()
-    nextQuestionAsked = new EventEmitter<never>();
+    nextStepRequested = new EventEmitter<never>();
 
     @Input()
     questionLabel!: string;
 
     private selectedAnswer?: Answer;
-
-    confirmAnswer(): void {
-        if (!this.selectedAnswer) {
-            return;
-        }
-
-        this.confirmedAnswer.emit(this.selectedAnswer);
-    }
-
-    goToNextQuestion(): void {
-        this.selectedAnswer = undefined;
-        this.immediateScore = undefined;
-        this.nextQuestionAsked.emit();
-    }
-
-    hasScoreBeenMade(): boolean {
-        return this.immediateScore !== undefined;
-    }
-
-    isBadScore(): boolean {
-        return this.immediateScore === 0;
-    }
-
-    isPositiveScore(): boolean {
-        return this.immediateScore === 1;
-    }
 
     isSelected(id: number): boolean {
         return this.selectedAnswer?.id === id;
@@ -58,7 +32,31 @@ export class QuizStepComponent {
         return this.noAnswerSelected() || this.hasScoreBeenMade();
     }
 
-    selectAnswer(id: number): void {
+    mustNextButtonBeDisabled(): boolean {
+        return !this.hasScoreBeenMade();
+    }
+
+    onAnswerConfirmed(): void {
+        this.confirmedAnswer.emit(this.selectedAnswer?.id);
+    }
+
+    onAnswerSelected(answerId: number): void {
+        this.selectAnswer(answerId);
+    }
+
+    onNextStepRequested(): void {
+        this.nextStepRequested.emit();
+    }
+
+    private hasScoreBeenMade(): boolean {
+        return this.isGivenAnswerCorrect !== undefined;
+    }
+
+    private noAnswerSelected(): boolean {
+        return !this.selectedAnswer;
+    }
+
+    private selectAnswer(id: number): void {
         if (this.hasScoreBeenMade()) {
             return;
         }
@@ -71,9 +69,5 @@ export class QuizStepComponent {
         }
 
         this.selectedAnswer = existingAnswer;
-    }
-
-    private noAnswerSelected(): boolean {
-        return !this.selectedAnswer;
     }
 }

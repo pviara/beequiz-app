@@ -1,0 +1,9 @@
+<div class="container">
+    <div *ngFor="let answer of answers;">
+        <answer
+            [answer]="answer"
+            [isSelected]="mustBeSelected(answer)"
+            (answerSelected)="onAnswerSelected($event)">
+        </answer>
+    </div>
+</div>

@@ -10,6 +10,10 @@ export class QuizService {
 
     generatedQuiz = new BehaviorSubject<Quiz | null>(null);
 
+    constructor() {
+        this.launchQuizGeneration(0, 0);
+    }
+
     launchQuizGeneration(quizThemeId: number, numberOfQuestions: number): void {
         this.markQuizAsRequested();
 
@@ -78,7 +82,7 @@ export class QuizService {
             // TODO | But don't do it here at this line! Rather from the quiz component itself.
             // TODO | Otherwise user won't be able to access quiz component immediatly which
             // TODO | makes no sense.
-        }, 3000);
+        }, 0);
     }
 
     private markQuizAsRequested(): void {

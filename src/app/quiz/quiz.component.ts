@@ -1,6 +1,6 @@
-import { Answer, Quiz } from '../core/model/quiz';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationService } from '../core/services/navigation.service';
+import { Quiz } from '../core/model/quiz';
 import { QuizService } from '../core/services/quiz-service';
 
 @Component({
@@ -8,8 +8,8 @@ import { QuizService } from '../core/services/quiz-service';
     templateUrl: './quiz.component.html',
     styleUrls: ['./quiz.component.scss'],
 })
-export class QuizComponent implements OnInit {
-    immediateScore?: 0 | 1;
+export class QuizComponent implements OnDestroy, OnInit {
+    isGivenAnswerCorrect!: boolean;
 
     quiz!: Quiz;
 
@@ -17,6 +17,10 @@ export class QuizComponent implements OnInit {
         private navigationService: NavigationService,
         private quizService: QuizService,
     ) {}
+
+    ngOnDestroy(): void {
+        this.navigationService.deactivateQuizQuitPrevention();
+    }
 
     ngOnInit(): void {
         this.navigationService.activateQuizQuitPrevention();
@@ -32,11 +36,11 @@ export class QuizComponent implements OnInit {
         return new Boolean(this.quiz).valueOf();
     }
 
-    onConfirmedAnswer(answer: Answer): void {
-        this.immediateScore = this.quiz.scoreAnswer(answer);
+    onConfirmedAnswer(answerId: number): void {
+        this.isGivenAnswerCorrect = this.quiz.handleScoreForAnswer(answerId);
     }
 
-    onGoToNextQuestion(): void {
+    onNextStepRequested(): void {
         this.quiz.goToNextQuestion();
     }
 }

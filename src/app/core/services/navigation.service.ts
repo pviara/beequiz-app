@@ -1,18 +1,21 @@
 import { ActivationStart, Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { QuizService } from './quiz-service';
+import { Subscription } from 'rxjs';
 
 @Injectable({
     providedIn: 'root',
 })
 export class NavigationService {
+    private subscribedEvents!: Subscription;
+
     constructor(
         private quizService: QuizService,
         private router: Router,
     ) {}
 
     activateQuizQuitPrevention(): void {
-        this.router.events.subscribe((event) => {
+        this.subscribedEvents = this.router.events.subscribe((event) => {
             if (event instanceof ActivationStart) {
                 const activatedPath = event.snapshot.url[0]?.path;
                 const userWantsToEscapeQuiz = !activatedPath?.includes('play');
@@ -24,5 +27,9 @@ export class NavigationService {
                 }
             }
         });
+    }
+
+    deactivateQuizQuitPrevention(): void {
+        this.subscribedEvents.unsubscribe();
     }
 }

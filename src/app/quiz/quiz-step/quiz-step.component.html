@@ -3,16 +3,19 @@
         {{ questionLabel }}
     </h2>
     <div class="answers">
-        <div
-            class="answer"
-            *ngFor="let answer of answers;"
-            [ngClass]="isSelected(answer.id) ? 'selected' : ''"
-            (click)="selectAnswer(answer.id)">
-            {{ answer.label }}
-        </div>
+        <answers-container
+            [answers]="answers"
+            (answerSelected)="onAnswerSelected($event)">
+        </answers-container>
     </div>
     <div class="actions">
-        <button
+        <actions-container
+            [isConfirmButtonDisabled]="mustConfirmButtonBeDisabled()"
+            [isNextButtonDisabled]="mustNextButtonBeDisabled()"
+            (answerConfirmed)="onAnswerConfirmed()"
+            (nextStepRequested)="onNextStepRequested()">
+        </actions-container>
+        <!-- <button
             [disabled]="mustConfirmButtonBeDisabled()"
             [ngClass]="mustConfirmButtonBeDisabled() ? 'disabled' : 'primary'"
             (click)="confirmAnswer()">
@@ -33,6 +36,6 @@
             *ngIf="hasScoreBeenMade()"
             (click)="goToNextQuestion()">
             Suivant
-        </button>
+        </button> -->
     </div>
 </div>

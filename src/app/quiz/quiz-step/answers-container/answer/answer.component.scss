@@ -1,0 +1,22 @@
+.container {
+    p {
+        padding: 1rem;
+
+        border-radius: 2rem;
+        background-color: #dedede;
+
+        text-align: center;
+        font-size: 1.1rem;
+
+        &.selected {
+            background: rgb(37, 44, 45);
+            background: linear-gradient(
+                180deg,
+                rgba(37, 44, 45, 1) 0%,
+                rgba(54, 62, 67, 1) 100%
+            );
+
+            color: #fff;
+        }
+    }
+}

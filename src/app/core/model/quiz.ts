@@ -44,17 +44,17 @@ export class Quiz {
         return this.givenAnswers.length === this.questions.length;
     }
 
-    isGivenAnswerCorrect(answer: Answer): boolean {
+    isGivenAnswerCorrect(answerId: number): boolean {
         const correctAnswer = this.getCurrentQuestionCorrectAnswer();
-        return correctAnswer.id === answer.id;
+        return correctAnswer.id === answerId;
     }
 
-    scoreAnswer(answer: Answer): 0 | 1 {
-        if (this.isGivenAnswerCorrect(answer)) {
+    handleScoreForAnswer(answerId: number): boolean {
+        if (this.isGivenAnswerCorrect(answerId)) {
             this.increaseScore();
-            return 1;
+            return true;
         }
-        return 0;
+        return false;
     }
 
     private getCurrentQuestion(): Question {

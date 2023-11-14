@@ -1,0 +1,17 @@
+<div class="container">
+    <button
+        class="primary"
+        [disabled]="isConfirmButtonDisabled"
+        [ngClass]="{ 'disabled': isConfirmButtonDisabled }"
+        (click)="confirmAnswer()">
+        Confirmer
+    </button>
+
+    <button
+        class="primary"
+        [disabled]="isNextButtonDisabled"
+        [ngClass]="{ 'disabled': isNextButtonDisabled }"
+        (click)="goToNextQuestion()">
+        Suivant
+    </button>
+</div>

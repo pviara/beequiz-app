@@ -12,10 +12,10 @@
         <quiz-step
             *ngIf="hasQuizBeenLoaded(); else loading;"
             [answers]="quiz.getCurrentQuestionAnswers()"
-            [immediateScore]="immediateScore"
+            [isGivenAnswerCorrect]="isGivenAnswerCorrect"
             [questionLabel]="quiz.getCurrentQuestionLabel()"
             (confirmedAnswer)="onConfirmedAnswer($event)"
-            (nextQuestionAsked)="onGoToNextQuestion()">
+            (nextStepRequested)="onNextStepRequested()">
         </quiz-step>
         
         <ng-template #loading>
