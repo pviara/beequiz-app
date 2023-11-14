@@ -8,6 +8,24 @@
         text-align: center;
         font-size: 1.1rem;
 
+        &.correct {
+            background: rgb(69, 198, 52);
+            background: linear-gradient(
+                180deg,
+                rgba(57, 154, 44, 1) 0%,
+                rgba(69, 198, 52, 1) 100%
+            );
+        }
+
+        &.incorrect {
+            background: rgb(236, 27, 27);
+            background: linear-gradient(
+                180deg,
+                rgba(191, 34, 34, 1) 0%,
+                rgba(236, 27, 27, 1) 100%
+            );
+        }
+
         &.selected {
             background: rgb(37, 44, 45);
             background: linear-gradient(

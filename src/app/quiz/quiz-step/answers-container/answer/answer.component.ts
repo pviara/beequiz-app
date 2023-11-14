@@ -1,5 +1,6 @@
 import { Answer } from '../../../../core/model/quiz';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { GivenAnswerState } from '../../model/given-answer-state';
 
 @Component({
     selector: 'answer',
@@ -10,13 +11,32 @@ export class AnswerComponent {
     @Input()
     answer!: Answer;
 
-    @Output()
-    answerSelected = new EventEmitter<number>();
+    @Input()
+    givenAnswerState!: GivenAnswerState;
 
     @Input()
     isSelected!: boolean;
 
+    @Output()
+    answerSelected = new EventEmitter<number>();
+
     selectAnswer(): void {
         this.answerSelected.emit(this.answer.id);
+    }
+
+    wasThisGivenAnswerCorrect(): boolean {
+        return (
+            this.givenAnswerState.givenAnswerId === this.answer.id &&
+            this.givenAnswerState.hasAnswerBeenGiven &&
+            this.givenAnswerState.wasGivenAnswerCorrect
+        );
+    }
+
+    wasThisGivenAnswerIncorrect(): boolean {
+        return (
+            this.givenAnswerState.givenAnswerId === this.answer.id &&
+            this.givenAnswerState.hasAnswerBeenGiven &&
+            !this.givenAnswerState.wasGivenAnswerCorrect
+        );
     }
 }

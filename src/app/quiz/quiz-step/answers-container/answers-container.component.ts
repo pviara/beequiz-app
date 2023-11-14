@@ -1,5 +1,6 @@
 import { Answer } from '../../../core/model/quiz';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { GivenAnswerState } from '../model/given-answer-state';
 
 @Component({
     selector: 'answers-container',
@@ -10,28 +11,27 @@ export class AnswersContainerComponent {
     @Input()
     answers!: Answer[];
 
+    @Input()
+    givenAnswerState!: GivenAnswerState;
+
+    @Input()
+    selectedAnswerId?: number;
+
     @Output()
     answerSelected = new EventEmitter<number>();
 
-    selectedAnswerId?: number;
-
     mustBeSelected(answer: Answer): boolean {
-        return this.selectedAnswerId === answer.id;
+        return (
+            this.selectedAnswerId === answer.id &&
+            !this.givenAnswerState.hasAnswerBeenGiven
+        );
     }
 
     onAnswerSelected(answerId: number): void {
-        this.selectedAnswerId = this.getAnswer(answerId).id;
-        this.answerSelected.emit(this.selectedAnswerId);
-    }
-
-    private getAnswer(answerId: number): Answer {
-        const existingAnswer = this.answers.find(
-            (answer) => answer.id === answerId,
-        );
-        if (!existingAnswer) {
-            throw new Error(`Answer should exist with id ${answerId}.`);
+        if (this.givenAnswerState.hasAnswerBeenGiven) {
+            return;
         }
 
-        return existingAnswer;
+        this.answerSelected.emit(answerId);
     }
 }

@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { GivenAnswerState } from './quiz-step/model/given-answer-state';
 import { NavigationService } from '../core/services/navigation.service';
 import { Quiz } from '../core/model/quiz';
 import { QuizService } from '../core/services/quiz-service';
@@ -9,7 +10,10 @@ import { QuizService } from '../core/services/quiz-service';
     styleUrls: ['./quiz.component.scss'],
 })
 export class QuizComponent implements OnDestroy, OnInit {
-    isGivenAnswerCorrect!: boolean;
+    givenAnswerState: GivenAnswerState = {
+        hasAnswerBeenGiven: false,
+        wasGivenAnswerCorrect: false,
+    };
 
     quiz!: Quiz;
 
@@ -37,10 +41,24 @@ export class QuizComponent implements OnDestroy, OnInit {
     }
 
     onConfirmedAnswer(answerId: number): void {
-        this.isGivenAnswerCorrect = this.quiz.handleScoreForAnswer(answerId);
+        const wasGivenAnswerCorrect = this.quiz.handleScoreForAnswer(answerId);
+        this.givenAnswerState = {
+            givenAnswerId: answerId,
+            hasAnswerBeenGiven: true,
+            wasGivenAnswerCorrect,
+        };
     }
 
     onNextStepRequested(): void {
+        this.resetGivenAnswerState();
         this.quiz.goToNextQuestion();
+    }
+
+    private resetGivenAnswerState(): void {
+        this.givenAnswerState = {
+            givenAnswerId: undefined,
+            hasAnswerBeenGiven: false,
+            wasGivenAnswerCorrect: false,
+        };
     }
 }

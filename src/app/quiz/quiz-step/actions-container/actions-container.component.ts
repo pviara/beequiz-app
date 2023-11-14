@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { GivenAnswerState } from '../model/given-answer-state';
 
 @Component({
     selector: 'actions-container',
@@ -6,8 +7,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     styleUrls: ['./actions-container.component.scss'],
 })
 export class ActionsContainerComponent {
-    @Output()
-    answerConfirmed = new EventEmitter<never>();
+    @Input()
+    givenAnswerState!: GivenAnswerState;
 
     @Input()
     isConfirmButtonDisabled!: boolean;
@@ -16,13 +17,16 @@ export class ActionsContainerComponent {
     isNextButtonDisabled!: boolean;
 
     @Output()
+    answerConfirmed = new EventEmitter<never>();
+
+    @Output()
     nextStepRequested = new EventEmitter<never>();
 
     confirmAnswer(): void {
         this.answerConfirmed.emit();
     }
 
-    goToNextQuestion(): void {
+    goToNextStep(): void {
         this.nextStepRequested.emit();
     }
 }

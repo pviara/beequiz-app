@@ -5,37 +5,18 @@
     <div class="answers">
         <answers-container
             [answers]="answers"
+            [givenAnswerState]="givenAnswerState"
+            [selectedAnswerId]="selectedAnswerId"
             (answerSelected)="onAnswerSelected($event)">
         </answers-container>
     </div>
     <div class="actions">
         <actions-container
+            [givenAnswerState]="givenAnswerState"
             [isConfirmButtonDisabled]="mustConfirmButtonBeDisabled()"
             [isNextButtonDisabled]="mustNextButtonBeDisabled()"
             (answerConfirmed)="onAnswerConfirmed()"
             (nextStepRequested)="onNextStepRequested()">
         </actions-container>
-        <!-- <button
-            [disabled]="mustConfirmButtonBeDisabled()"
-            [ngClass]="mustConfirmButtonBeDisabled() ? 'disabled' : 'primary'"
-            (click)="confirmAnswer()">
-            <ng-container *ngIf="hasScoreBeenMade(); else noScoreMade;">
-                <ng-container *ngIf="isPositiveScore(); else badScore;">
-                    👏 Bravo !
-                </ng-container>
-                <ng-template #badScore>
-                    ❌ Raté !
-                </ng-template>
-            </ng-container>
-            <ng-template #noScoreMade>
-                Valider
-            </ng-template>
-        </button>
-        <button
-            class="primary"
-            *ngIf="hasScoreBeenMade()"
-            (click)="goToNextQuestion()">
-            Suivant
-        </button> -->
     </div>
 </div>

@@ -12,7 +12,7 @@
         <quiz-step
             *ngIf="hasQuizBeenLoaded(); else loading;"
             [answers]="quiz.getCurrentQuestionAnswers()"
-            [isGivenAnswerCorrect]="isGivenAnswerCorrect"
+            [givenAnswerState]="givenAnswerState"
             [questionLabel]="quiz.getCurrentQuestionLabel()"
             (confirmedAnswer)="onConfirmedAnswer($event)"
             (nextStepRequested)="onNextStepRequested()">
