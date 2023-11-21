@@ -11,20 +11,20 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-        - name: Git checkout
-          uses: actions/checkout@v3
+            - name: Git checkout
+              uses: actions/checkout@v3
 
-        - name: Use Node.js 20
-          uses: actions/setup-node@v3
-          with:
-            node-version: '20.9.0'
-            cache: 'yarn'
+            - name: Use Node.js 20
+              uses: actions/setup-node@v3
+              with:
+                node-version: '20.9.0'
+                cache: 'yarn'
 
-        - name: 📦 Install dependencies
-          run: yarn install
+            - name: 📦 Install dependencies
+              run: yarn install
 
-        - name: 👷 Build project
-          run: yarn build
+            - name: 👷 Build project
+              run: yarn build
 
-        - name: 🧑‍🔬 Run unit tests
-          run: yarn test
+            - name: 🧑‍🔬 Run unit tests
+              run: yarn test
