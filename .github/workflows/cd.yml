@@ -18,7 +18,7 @@ jobs:
                 passphrase: ${{ secrets.SERVER_PASSPHRASE }}
                 port: 22
                 script: |
-                    export PATH="$PATH:/home/reginald/.nvm/versions/node/v16.16.0/bin/"
+                    export PATH="$PATH:/home/reginald/.nvm/versions/node/v20.9.0/bin/"
                     export NVM_DIR=~/.nvm
                     source ~/.nvm/nvm.sh
                     nvm use --lts
@@ -26,7 +26,7 @@ jobs:
                     git checkout main
                     git fetch --all
                     git reset --hard origin/main
-                    npm ci
-                    npm run build:ssr
+                    yarn install
+                    yarn build:ssr
                     pm2 delete beequiz-app
                     pm2 start dist/beequiz/beequiz-app/server/main.js --name beequiz-app
