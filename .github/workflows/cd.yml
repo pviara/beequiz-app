@@ -29,4 +29,4 @@ jobs:
                     yarn install
                     yarn build:ssr
                     pm2 delete beequiz-app
-                    pm2 start dist/beequiz/beequiz-app/server/main.js --name beequiz-app
+                    pm2 start dist/beequiz-app/server/server.mjs --name beequiz-app
