@@ -6,7 +6,7 @@
             <div class="quiz-themes">
                 <div
                     class="quiz-theme-parameter"
-                    *ngFor="let parameter of quizThemes">
+                    *ngFor="let parameter of quizParameters.themes">
                     <quiz-theme
                         [data]="parameter"
                         [isSelected]="isQuizThemeSelected(parameter)"
@@ -19,7 +19,7 @@
             <div class="quiz-number-of-questions">
                 <div
                     class="quiz-number-of-questions-parameter"
-                    *ngFor="let parameter of quizNumberOfQuestions">
+                    *ngFor="let parameter of quizParameters.numberOfQuestions">
                     <quiz-number-of-questions
                         [data]="parameter"
                         [isSelected]="isNumberOfQuestionsSelected(parameter)"

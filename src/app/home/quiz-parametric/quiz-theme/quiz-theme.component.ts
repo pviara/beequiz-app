@@ -20,7 +20,7 @@ export class QuizThemeComponent {
     selectedQuizTheme = new EventEmitter<QuizTheme>();
 
     computeImagePath(): string {
-        return `../../../../assets/images/${this.data.name}.png`;
+        return `../../../../assets/images/${this.data.code}.png`;
     }
 
     onContainerClick(): void {

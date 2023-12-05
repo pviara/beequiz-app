@@ -1,26 +1,23 @@
 import { Injectable } from '@angular/core';
 import { QuizTheme } from '../model/quiz-theme';
+import { QuizParameters } from '../model/quiz-parameters';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
     providedIn: 'root',
 })
 export class QuizParametersService {
-    private quizThemes: QuizTheme[] = [
-        new QuizTheme(0, 'sport'),
-        new QuizTheme(1, 'music'),
-        new QuizTheme(2, 'cinema'),
-        new QuizTheme(3, 'geography'),
-    ];
+    async getParameters(): Promise<QuizParameters> {
+        const result = await fetch(`${environment.API_URL}/quiz/parameters`);
 
-    getAllQuizThemes(): Promise<QuizTheme[]> {
-        return new Promise<QuizTheme[]>((resolve) => {
-            setTimeout(() => {
-                resolve(this.quizThemes);
-            }, 0);
-        });
-    }
+        const data = await result.json();
 
-    getAllQuizNumberOfQuestions(): number[] {
-        return [5, 10, 15];
+        return new QuizParameters(
+            data['themes'].map(
+                (theme: any) =>
+                    new QuizTheme(theme.id, theme.code, theme.label),
+            ),
+            data['numberOfQuestions'],
+        );
     }
 }

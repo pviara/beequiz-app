@@ -5,6 +5,7 @@ import { QuizTheme } from '../../core/model/quiz-theme';
 import { QuizParametersService } from '../../core/services/quiz-parameters.service';
 import { QuizService } from '../../core/services/quiz-service';
 import { Router } from '@angular/router';
+import { QuizParameters } from '../../core/model/quiz-parameters';
 
 type ValidatedQuizParamsFormValues = {
     quizThemeId: number;
@@ -17,10 +18,9 @@ type ValidatedQuizParamsFormValues = {
     styleUrls: ['./quiz-parametric.component.scss'],
 })
 export class QuizParametricComponent implements OnInit {
-    quizParamsForm!: FormGroup<QuizParamsForm>;
+    quizParameters = new QuizParameters([], []);
 
-    quizNumberOfQuestions!: number[];
-    quizThemes!: QuizTheme[];
+    quizParamsForm!: FormGroup<QuizParamsForm>;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -30,26 +30,24 @@ export class QuizParametricComponent implements OnInit {
     ) {}
 
     async ngOnInit(): Promise<void> {
-        this.quizNumberOfQuestions =
-            this.quizParametersService.getAllQuizNumberOfQuestions();
-        this.quizThemes = await this.quizParametersService.getAllQuizThemes();
+        this.quizParameters = await this.quizParametersService.getParameters();
 
         this.quizParamsForm = this.formBuilder.nonNullable.group({
             quizThemeId: this.formBuilder.nonNullable.control(
-                this.quizThemes[0].id,
+                this.quizParameters.themes[0].id,
                 [Validators.min(0)],
             ),
             quizNumberOfQuestions: this.formBuilder.nonNullable.control(
-                this.quizNumberOfQuestions[0],
-                [Validators.min(this.quizNumberOfQuestions[0])],
+                this.quizParameters.numberOfQuestions[0],
+                [Validators.min(this.quizParameters.numberOfQuestions[0])],
             ),
         });
     }
 
     haveAllDataBeenFetched(): boolean {
         return (
-            new Boolean(this.quizThemes).valueOf() &&
-            new Boolean(this.quizNumberOfQuestions).valueOf()
+            this.quizParameters.themes.length > 0 &&
+            this.quizParameters.numberOfQuestions.length > 0
         );
     }
 
@@ -87,7 +85,8 @@ export class QuizParametricComponent implements OnInit {
         const isQuizThemeIdInvalid =
             quizThemeId === null || quizThemeId === undefined;
 
-        const minimumNumberOfQuestions = this.quizNumberOfQuestions[0];
+        const minimumNumberOfQuestions =
+            this.quizParameters.numberOfQuestions[0];
 
         const areQuizNbrQuestionsInvalid =
             !quizNumberOfQuestions ||
