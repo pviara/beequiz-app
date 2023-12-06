@@ -1,3 +1,3 @@
 export const environment = {
-    API_URL: 'https://api.beequiz.pviara.dev/api',
+    API_URL: 'https://beequiz-api.pviara.dev/api',
 };
