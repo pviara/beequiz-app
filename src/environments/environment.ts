@@ -1,4 +1,4 @@
 export const environment = {
-    API_URL: 'https://beequiz-api.pviara.dev/api',
-    production: true,
+    API_URL: 'http://localhost:4002/api',
+    production: false,
 };
