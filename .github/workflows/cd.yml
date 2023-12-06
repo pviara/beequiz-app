@@ -27,6 +27,6 @@ jobs:
                     git fetch --all
                     git reset --hard origin/main
                     yarn install
-                    yarn build --configuration=production
+                    yarn build --configuration production
                     pm2 delete beequiz-app
                     pm2 start dist/beequiz-app/server/server.mjs --name beequiz-app
