@@ -36,12 +36,11 @@ export class QuizScoreEvaluation {
 export class Quiz {
     private currentQuestionIndex = 0;
 
+    private givenAnswers: number[] = [];
+
     private score = 0;
 
-    constructor(
-        readonly questions: Question[],
-        readonly givenAnswers: number[],
-    ) {}
+    constructor(readonly questions: Question[]) {}
 
     formatCurrentStepPaginator(): string {
         return `${this.currentQuestionIndex + 1}/${this.questions.length}`;

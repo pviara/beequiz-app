@@ -1,6 +1,16 @@
 import { Answer, Question, Quiz } from '../model/quiz';
-import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import {
+    BehaviorSubject,
+    Observable,
+    firstValueFrom,
+    map,
+    of,
+    switchMap,
+    tap,
+} from 'rxjs';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment.development';
+import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root',
@@ -10,82 +20,61 @@ export class QuizService {
 
     generatedQuiz = new BehaviorSubject<Quiz | null>(null);
 
-    constructor() {}
+    private apiEndpoint = `${environment.API_URL}/quiz`;
+
+    constructor(private httpClient: HttpClient) {}
 
     killQuiz(): void {
         this.generatedQuiz.next(null);
         this.hasQuizBeenRequested = false;
     }
 
-    launchQuizGeneration(quizThemeId: number, numberOfQuestions: number): void {
+    launchQuizGeneration(
+        quizThemeId: number,
+        numberOfQuestions: number,
+    ): Observable<null> {
         this.markQuizAsRequested();
 
-        setTimeout(() => {
-            this.generatedQuiz.next(
-                new Quiz(
-                    [
-                        new Question(
-                            0,
-                            'Quel joueur de tennis a remporté le plus grand nombre de titres en Grand Chelem ?',
-                            [
-                                new Answer(0, 'Rafael Nadal'),
-                                new Answer(1, 'Novak Djokovic'),
-                                new Answer(2, 'Roger Federer'),
-                                new Answer(3, 'Pete Sampras', true),
-                            ],
-                        ),
-                        new Question(
-                            1,
-                            'Quelle équipe a remporté le Super Bowl en 2021 ?',
-                            [
-                                new Answer(0, 'Kansas City Chiefs'),
-                                new Answer(1, 'San Francisco 49ers'),
-                                new Answer(2, 'New England Patriots'),
-                                new Answer(3, 'Tampa Bay Buccaneers', true),
-                            ],
-                        ),
-                        new Question(
-                            2,
-                            "Quel pays a remporté le plus grand nombre de médailles d'or aux Jeux Olympiques d'été de 2020 (reportés en 2021) ?",
-                            [
-                                new Answer(0, 'États-Unis'),
-                                new Answer(1, 'Chine', true),
-                                new Answer(2, 'Russie'),
-                                new Answer(3, 'Japon'),
-                            ],
-                        ),
-                        new Question(
-                            3,
-                            'Qui détient le record du monde du saut en hauteur masculin ?',
-                            [
-                                new Answer(0, 'Usain Bolt'),
-                                new Answer(1, 'Sergey Bubka'),
-                                new Answer(2, 'Javier Sotomayor', true),
-                                new Answer(3, 'Renaud Lavillenie'),
-                            ],
-                        ),
-                        new Question(
-                            4,
-                            "Quelle est la distance officielle d'un marathon ?",
-                            [
-                                new Answer(0, '42,195 km', true),
-                                new Answer(1, '21,0975 km'),
-                                new Answer(2, '10 kilomètres'),
-                                new Answer(3, '50 kilomètres'),
-                            ],
-                        ),
-                    ],
-                    [],
-                ),
+        return this.httpClient
+            .get<Record<string, any>[]>(
+                `${this.apiEndpoint}/questions?amount=${numberOfQuestions}&themeId=${quizThemeId}`,
+            )
+            .pipe(
+                tap((questions) => {
+                    this.generatedQuiz.next(this.createQuizFrom(questions));
+                }),
+                switchMap((_) => of(null)),
             );
 
-            // TODO | Don't forget to reset quiz request state to prevent the user to visit
-            // TODO | quiz component page while no quiz generation has been requested.
-            // TODO ---
-            // TODO | But don't do it here at this line! Rather from the quiz component itself.
-            // TODO | Otherwise user won't be able to access quiz component immediatly which
-            // TODO | makes no sense.
-        }, 0);
+        //     // TODO | Don't forget to reset quiz request state to prevent the user to visit
+        //     // TODO | quiz component page while no quiz generation has been requested.
+        //     // TODO ---
+        //     // TODO | But don't do it here at this line! Rather from the quiz component itself.
+        //     // TODO | Otherwise user won't be able to access quiz component immediatly which
+        //     // TODO | makes no sense.
+    }
+
+    private createQuizFrom(questions: Record<string, any>[]): Quiz {
+        return new Quiz(this.mapToQuestions(questions));
+    }
+
+    private mapToQuestions(questions: Record<string, any>[]): Question[] {
+        return questions.map((question) => this.mapToQuestion(question));
+    }
+
+    private mapToQuestion(question: Record<string, any>): Question {
+        return new Question(
+            question['id'],
+            question['label'],
+            this.mapToAnswers(question['answers']),
+        );
+    }
+
+    private mapToAnswers(answers: Record<string, any>[]): Answer[] {
+        return answers.map(
+            (answer) =>
+                new Answer(answer['id'], answer['label'], answer['isCorrect']),
+        );
     }
 
     private markQuizAsRequested(): void {

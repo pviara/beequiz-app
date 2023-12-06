@@ -44,18 +44,15 @@ export class QuizParametricComponent implements OnInit {
         });
     }
 
-    haveAllDataBeenFetched(): boolean {
-        return (
-            this.quizParameters.themes.length > 0 &&
-            this.quizParameters.numberOfQuestions.length > 0
-        );
-    }
-
     isNumberOfQuestionsSelected(numberOfQuestions: number): boolean {
         return (
             this.quizParamsForm.value.quizNumberOfQuestions ===
             numberOfQuestions
         );
+    }
+
+    isQuizBeingLoaded(): boolean {
+        return this.quizService.hasQuizBeenRequested;
     }
 
     isQuizThemeSelected({ id }: QuizTheme): boolean {
@@ -70,12 +67,32 @@ export class QuizParametricComponent implements OnInit {
         const { quizThemeId, quizNumberOfQuestions } =
             this.validateQuizParamsForm();
 
-        this.quizService.launchQuizGeneration(
-            quizThemeId,
-            quizNumberOfQuestions,
-        );
+        this.quizService
+            .launchQuizGeneration(quizThemeId, quizNumberOfQuestions)
+            .subscribe((_) =>
+                this.router.navigate(['/play'], { replaceUrl: true }),
+            );
+    }
 
-        this.router.navigate(['/play'], { replaceUrl: true });
+    mustSpinnerBeDisplayed(): boolean {
+        return this.haveAllDataNotBeenFetched() || this.isQuizBeingLoaded();
+    }
+
+    onNumberOfQuestionsSelect(numberOfQuestions: number): void {
+        this.quizParamsForm
+            .get('quizNumberOfQuestions')
+            ?.setValue(numberOfQuestions);
+    }
+
+    onQuizThemeSelect(quizTheme: QuizTheme): void {
+        this.quizParamsForm.get('quizThemeId')?.setValue(quizTheme.id);
+    }
+
+    private haveAllDataNotBeenFetched(): boolean {
+        return (
+            this.quizParameters.themes.length === 0 ||
+            this.quizParameters.numberOfQuestions.length === 0
+        );
     }
 
     private validateQuizParamsForm(): ValidatedQuizParamsFormValues {
@@ -100,15 +117,5 @@ export class QuizParametricComponent implements OnInit {
             quizThemeId,
             quizNumberOfQuestions,
         };
-    }
-
-    onNumberOfQuestionsSelect(numberOfQuestions: number): void {
-        this.quizParamsForm
-            .get('quizNumberOfQuestions')
-            ?.setValue(numberOfQuestions);
-    }
-
-    onQuizThemeSelect(quizTheme: QuizTheme): void {
-        this.quizParamsForm.get('quizThemeId')?.setValue(quizTheme.id);
     }
 }

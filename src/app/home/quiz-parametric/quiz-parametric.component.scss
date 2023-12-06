@@ -37,4 +37,14 @@
         animation-name: slideInFromBottom;
         animation-duration: 1s;
     }
+
+    h3 {
+        text-align: center;
+
+        font-size: 1.5rem;
+        color: #989898;
+
+        animation-name: fadeIn;
+        animation-duration: 1s;
+    }
 }
