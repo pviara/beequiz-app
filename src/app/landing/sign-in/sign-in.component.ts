@@ -11,9 +11,8 @@ import { User } from '../../core/model/user';
     styleUrls: ['../forms.styles.scss', './sign-in.component.scss'],
 })
 export class SignInComponent implements OnInit {
-    signedInMessage = '';
-
     errorMessage = '';
+    signedInMessage = '';
 
     signInForm!: FormGroup<SignInForm>;
 
@@ -39,25 +38,23 @@ export class SignInComponent implements OnInit {
             return;
         }
 
-        const userToAuthenticate = new User(
-            form.value.username,
-            form.value.password,
-        );
+        this.authService
+            .signIn(form.value.username, form.value.password)
+            .subscribe({
+                next: () => {
+                    this.errorMessage = '';
+                    this.signedInMessage = '🔐 Vous êtes connecté·e !';
 
-        try {
-            this.authService.authenticate(
-                userToAuthenticate.username,
-                userToAuthenticate.password,
-            );
+                    this.signInForm.disable();
 
-            this.errorMessage = '';
-            this.signedInMessage = 'Vous êtes connecté·e !';
-
-            setTimeout(() => {
-                this.router.navigate(['../welcome']);
-            }, 2000);
-        } catch (error: any) {
-            this.errorMessage = error.message;
-        }
+                    setTimeout(() => {
+                        this.router.navigate(['../welcome']);
+                    }, 2000);
+                },
+                error: () => {
+                    this.errorMessage =
+                        'Mauvais identifiant et/ou mot de passe.';
+                },
+            });
     }
 }

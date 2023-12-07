@@ -12,6 +12,7 @@ import { User } from '../../core/model/user';
 })
 export class SignUpComponent implements OnInit {
     errorMessage = '';
+    signedUpMessage = '';
 
     signUpForm!: FormGroup<SignUpForm>;
 
@@ -37,12 +38,22 @@ export class SignUpComponent implements OnInit {
             return;
         }
 
-        const userToAdd = new User(form.value.username, form.value.password);
-        try {
-            this.userService.add(userToAdd);
-            this.router.navigate(['..']);
-        } catch (error: any) {
-            this.errorMessage = error.message;
-        }
+        this.userService
+            .addUser(form.value.username, form.value.password)
+            .subscribe({
+                next: () => {
+                    this.errorMessage = '';
+                    this.signedUpMessage = 'Compte créé ! 👋 Bienvenue !';
+
+                    this.signUpForm.disable();
+
+                    setTimeout(() => {
+                        this.router.navigate(['/']);
+                    }, 2000);
+                },
+                error: () => {
+                    this.errorMessage = `L'utilisateur "${form.value.username}" existe déjà !`;
+                },
+            });
     }
 }

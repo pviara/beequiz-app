@@ -1,3 +1,4 @@
+import { landingGuard } from './landing/landing.guard';
 import { Routes } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { welcomeGuard } from './welcome/welcome.guard';
@@ -5,6 +6,7 @@ import { welcomeGuard } from './welcome/welcome.guard';
 export const routes: Routes = [
     {
         path: '',
+        canActivate: [landingGuard],
         loadChildren: () =>
             import('./landing/landing.module').then((m) => m.LandingModule),
     },

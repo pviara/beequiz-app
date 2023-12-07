@@ -11,13 +11,10 @@ import { WelcomeService } from '../core/services/welcome.service';
     styleUrls: ['./welcome.component.scss'],
 })
 export class WelcomeComponent {
-    constructor(
-        private router: Router,
-        private welcomeService: WelcomeService,
-    ) {}
+    constructor(private router: Router) {}
 
     onNext(): void {
-        this.welcomeService.markUserAsWelcomed();
+        // todo mark user as welcomed : this.welcomeService.markUserAsWelcomed();
         this.router.navigate(['../home']);
     }
 }

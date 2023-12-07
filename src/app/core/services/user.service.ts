@@ -1,30 +1,20 @@
-import { Injectable } from '@angular/core';
-import { User } from '../model/user';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class UserService {
-    private registeredUsers: User[] = [
-        new User('user', 'access'), // TODO remove this
-    ];
+    private httpClient = inject(HttpClient);
 
-    add(user: User): void {
-        const existingUser = this.findByUsername(user.username);
-        if (existingUser) {
-            throw new Error(`L'utilisateur "${user.username}" existe déjà !`);
-        }
+    private userEndpoint = `${environment.API_URL}/user`;
 
-        this.registeredUsers.push(user);
-    }
-
-    findByUsername(username: string): User | undefined {
-        return this.registeredUsers.find((user) =>
-            this.compareStrings(user.username, username),
-        );
-    }
-
-    private compareStrings(str1: string, str2: string): boolean {
-        return str1.toLowerCase() === str2.toLowerCase();
+    addUser(username: string, password: string): Observable<void> {
+        return this.httpClient.post<void>(this.userEndpoint, {
+            username,
+            password,
+        });
     }
 }

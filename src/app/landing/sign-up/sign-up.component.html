@@ -1,7 +1,10 @@
 <div class="container">
     <h2 class="bold">Créer son compte</h2>
-
-    <snackbar [errorMessage]="errorMessage"></snackbar>
+    
+    <snackbar
+        [errorMessage]="errorMessage"
+        [successMessage]="signedUpMessage">
+    </snackbar>
 
     <form
         [formGroup]="signUpForm"
@@ -18,13 +21,15 @@
 
         <button
             type="submit"
-            [disabled]="signUpForm.invalid"
-            [ngClass]="signUpForm.invalid ? 'disabled' : 'primary'">
+            [disabled]="signUpForm.invalid || signedUpMessage"
+            [ngClass]="signUpForm.invalid  || signedUpMessage ? 'disabled' : 'primary'">
             Créer un compte
         </button>
         
         <a routerLink="..">
-            <button>
+            <button
+                [disabled]="signedUpMessage"
+                [ngClass]="signedUpMessage ? 'disabled' : ''">
                 Retour
             </button>
         </a>
