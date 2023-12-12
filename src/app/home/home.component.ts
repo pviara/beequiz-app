@@ -1,6 +1,5 @@
-import { Router } from '@angular/router';
 import { AuthService } from '../core/services/auth.service';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 @Component({
     selector: 'home',
@@ -8,7 +7,7 @@ import { Component } from '@angular/core';
     styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
-    constructor(private authService: AuthService) {}
+    private authService = inject(AuthService);
 
     launchLogout(): void {
         this.authService.logout();

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { WelcomeService } from '../core/services/welcome.service';
@@ -11,7 +11,7 @@ import { WelcomeService } from '../core/services/welcome.service';
     styleUrls: ['./welcome.component.scss'],
 })
 export class WelcomeComponent {
-    constructor(private router: Router) {}
+    private router = inject(Router);
 
     onNext(): void {
         // todo mark user as welcomed : this.welcomeService.markUserAsWelcomed();

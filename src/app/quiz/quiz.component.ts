@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { GivenAnswerState } from './quiz-step/model/given-answer-state';
 import { NavigationService } from '../core/services/navigation.service';
 import { Quiz } from '../core/model/quiz';
@@ -18,11 +18,9 @@ export class QuizComponent implements OnDestroy, OnInit {
 
     quiz!: Quiz;
 
-    constructor(
-        private navigationService: NavigationService,
-        private quizService: QuizService,
-        private router: Router,
-    ) {}
+    private navigationService = inject(NavigationService);
+    private quizService = inject(QuizService);
+    private router = inject(Router);
 
     ngOnDestroy(): void {
         this.navigationService.deactivateQuizQuittingPrevention();

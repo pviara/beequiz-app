@@ -2,15 +2,13 @@ import { Answer, Question, Quiz } from '../model/quiz';
 import {
     BehaviorSubject,
     Observable,
-    firstValueFrom,
-    map,
     of,
     switchMap,
     tap,
 } from 'rxjs';
-import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 
 @Injectable({
     providedIn: 'root',
@@ -20,9 +18,9 @@ export class QuizService {
 
     generatedQuiz = new BehaviorSubject<Quiz | null>(null);
 
+    private httpClient = inject(HttpClient);
+    
     private apiEndpoint = `${environment.API_URL}/quiz`;
-
-    constructor(private httpClient: HttpClient) {}
 
     killQuiz(): void {
         this.generatedQuiz.next(null);

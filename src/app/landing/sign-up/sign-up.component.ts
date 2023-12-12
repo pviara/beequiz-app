@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignUpForm } from './model/sign-up-form';
@@ -16,11 +16,9 @@ export class SignUpComponent implements OnInit {
 
     signUpForm!: FormGroup<SignUpForm>;
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private router: Router,
-        private userService: UserService,
-    ) {}
+    private formBuilder = inject(FormBuilder);
+    private router = inject(Router);
+    private userService = inject(UserService);
 
     ngOnInit(): void {
         this.signUpForm = this.formBuilder.nonNullable.group({

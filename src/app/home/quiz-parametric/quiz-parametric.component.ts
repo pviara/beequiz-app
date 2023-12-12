@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { QuizParamsForm } from './model/quiz-params-form';
-import { QuizTheme } from '../../core/model/quiz-theme';
+import { QuizParameters } from '../../core/model/quiz-parameters';
 import { QuizParametersService } from '../../core/services/quiz-parameters.service';
 import { QuizService } from '../../core/services/quiz-service';
+import { QuizTheme } from '../../core/model/quiz-theme';
 import { Router } from '@angular/router';
-import { QuizParameters } from '../../core/model/quiz-parameters';
 
 type ValidatedQuizParamsFormValues = {
     quizThemeId: number;
@@ -22,12 +22,10 @@ export class QuizParametricComponent implements OnInit {
 
     quizParamsForm!: FormGroup<QuizParamsForm>;
 
-    constructor(
-        private formBuilder: FormBuilder,
-        private quizParametersService: QuizParametersService,
-        private quizService: QuizService,
-        private router: Router,
-    ) {}
+    private formBuilder = inject(FormBuilder);
+    private quizParametersService = inject(QuizParametersService);
+    private quizService = inject(QuizService);
+    private router = inject(Router);
 
     async ngOnInit(): Promise<void> {
         this.quizParameters = await this.quizParametersService.getParameters();

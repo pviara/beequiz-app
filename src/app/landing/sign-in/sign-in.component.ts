@@ -1,9 +1,8 @@
 import { AuthService } from '../../core/services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SignInForm } from './model/sign-in-form';
-import { User } from '../../core/model/user';
 
 @Component({
     selector: 'sign-in',
@@ -16,11 +15,9 @@ export class SignInComponent implements OnInit {
 
     signInForm!: FormGroup<SignInForm>;
 
-    constructor(
-        private authService: AuthService,
-        private formBuilder: FormBuilder,
-        private router: Router,
-    ) {}
+    private authService = inject(AuthService);
+    private formBuilder = inject(FormBuilder);
+    private router = inject(Router);
 
     ngOnInit(): void {
         this.signInForm = this.formBuilder.nonNullable.group({

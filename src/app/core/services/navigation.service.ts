@@ -1,5 +1,5 @@
 import { ActivationStart, Router } from '@angular/router';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { QuizService } from './quiz-service';
 import { Subscription } from 'rxjs';
 
@@ -7,12 +7,10 @@ import { Subscription } from 'rxjs';
     providedIn: 'root',
 })
 export class NavigationService {
+    private quizService = inject(QuizService);
+    private router = inject(Router);
+    
     private subscribedEvents!: Subscription;
-
-    constructor(
-        private quizService: QuizService,
-        private router: Router,
-    ) {}
 
     activateQuizQuittingPrevention(): void {
         this.subscribedEvents = this.router.events.subscribe((event) => {
