@@ -1,4 +1,14 @@
 .container {
+    cursor: pointer;
+    user-select: none;
+
+    transition-property: transform;
+    transition-duration: 0.1s;
+
+    &:active {
+        transform: scale(1.05);
+    }
+
     &.selected {
         background: rgb(254, 205, 31);
         background: linear-gradient(

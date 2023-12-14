@@ -24,6 +24,10 @@ export class AnswerComponent {
         this.answerSelected.emit(this.answer.id);
     }
 
+    wasAnswerGiven(): boolean {
+        return new Boolean(this.givenAnswerState.givenAnswerId).valueOf();
+    }
+
     wasThisGivenAnswerCorrect(): boolean {
         return (
             this.givenAnswerState.givenAnswerId === this.answer.id &&

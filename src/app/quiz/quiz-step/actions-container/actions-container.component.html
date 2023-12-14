@@ -1,8 +1,7 @@
 <div class="container">
     <button
-        class="primary"
         [disabled]="isConfirmButtonDisabled"
-        [ngClass]="{ 'disabled': isConfirmButtonDisabled }"
+        [ngClass]="isConfirmButtonDisabled ? 'disabled' : 'primary'"
         (click)="confirmAnswer()">
         <ng-container *ngIf="givenAnswerState.hasAnswerBeenGiven; else notGivenAnswer;">
 
@@ -21,9 +20,8 @@
     </button>
 
     <button
-        class="primary"
         [disabled]="isNextButtonDisabled"
-        [ngClass]="{ 'disabled': isNextButtonDisabled }"
+        [ngClass]="isNextButtonDisabled ? 'disabled' : 'primary'"
         (click)="goToNextStep()">
         Suivant
     </button>

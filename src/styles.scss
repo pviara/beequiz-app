@@ -66,6 +66,8 @@ button {
     font-family: 'semi-bold';
     color: #fff;
 
+    cursor: pointer;
+
     &.primary {
         background: rgb(254, 205, 31);
         background: linear-gradient(
@@ -75,6 +77,13 @@ button {
         );
 
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+
+        transition-property: transform;
+        transition-duration: 0.1s;
+
+        &:active {
+            transform: scale(1.05);
+        }
     }
 
     &.disabled {
@@ -84,6 +93,12 @@ button {
             rgba(176, 176, 176, 1) 0%,
             rgba(180, 180, 180, 1) 100%
         );
+
+        cursor: not-allowed;
+
+        &:hover {
+            transform: scale(1);
+        }
     }
 }
 

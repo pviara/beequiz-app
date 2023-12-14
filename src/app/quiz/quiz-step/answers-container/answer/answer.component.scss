@@ -8,6 +8,21 @@
         text-align: center;
         font-size: 1.1rem;
 
+        transition-property: transform;
+        transition-duration: 0.05s;
+
+        &:active {
+            transform: scale(1.05);
+        }
+
+        cursor: pointer;
+        user-select: none;
+
+        &.disabled {
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+
         &.correct {
             background: rgb(69, 198, 52);
             background: linear-gradient(

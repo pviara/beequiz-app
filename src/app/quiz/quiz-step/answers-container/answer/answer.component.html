@@ -2,6 +2,7 @@
     <p
         [ngClass]="{
             'correct': wasThisGivenAnswerCorrect(),
+            'disabled': wasAnswerGiven(),
             'incorrect': wasThisGivenAnswerIncorrect(),
             'selected': isSelected,
         }"
