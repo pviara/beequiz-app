@@ -1,11 +1,5 @@
 import { Answer, Question, Quiz } from '../model/quiz';
-import {
-    BehaviorSubject,
-    Observable,
-    of,
-    switchMap,
-    tap,
-} from 'rxjs';
+import { BehaviorSubject, Observable, of, switchMap, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
@@ -19,7 +13,7 @@ export class QuizService {
     generatedQuiz = new BehaviorSubject<Quiz | null>(null);
 
     private httpClient = inject(HttpClient);
-    
+
     private apiEndpoint = `${environment.API_URL}/quiz`;
 
     killQuiz(): void {
@@ -30,26 +24,20 @@ export class QuizService {
     launchQuizGeneration(
         quizThemeId: number,
         numberOfQuestions: number,
-    ): Observable<null> {
+    ): Observable<Quiz | null> {
         this.markQuizAsRequested();
 
         return this.httpClient
-            .get<Record<string, any>[]>(
+            .get<Question[]>(
                 `${this.apiEndpoint}/questions?amount=${numberOfQuestions}&themeId=${quizThemeId}`,
             )
             .pipe(
                 tap((questions) => {
-                    this.generatedQuiz.next(this.createQuizFrom(questions));
+                    const quiz = this.createQuizFrom(questions);
+                    this.generatedQuiz.next(quiz);
                 }),
-                switchMap((_) => of(null)),
+                switchMap((_) => of(this.generatedQuiz.value)),
             );
-
-        //     // TODO | Don't forget to reset quiz request state to prevent the user to visit
-        //     // TODO | quiz component page while no quiz generation has been requested.
-        //     // TODO ---
-        //     // TODO | But don't do it here at this line! Rather from the quiz component itself.
-        //     // TODO | Otherwise user won't be able to access quiz component immediatly which
-        //     // TODO | makes no sense.
     }
 
     private createQuizFrom(questions: Record<string, any>[]): Quiz {

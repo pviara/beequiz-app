@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 export class NavigationService {
     private quizService = inject(QuizService);
     private router = inject(Router);
-    
+
     private subscribedEvents!: Subscription;
 
     activateQuizQuittingPrevention(): void {

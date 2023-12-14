@@ -29,10 +29,12 @@ export class QuizComponent implements OnDestroy, OnInit {
     ngOnInit(): void {
         this.navigationService.activateQuizQuittingPrevention();
 
-        this.quizService.generatedQuiz.subscribe((quiz) => {
-            if (quiz) {
-                this.quiz = quiz;
-            }
+        this.quizService.generatedQuiz.subscribe({
+            next: (quiz) => {
+                if (quiz) {
+                    this.quiz = quiz;
+                }
+            },
         });
     }
 
