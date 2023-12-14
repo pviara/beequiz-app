@@ -11,6 +11,12 @@
     
     <ng-template #loaded>
         <div class="parameters">
+            <div class="snackbar">
+                <snackbar
+                    [errorMessage]="errorMessage">
+                </snackbar>
+            </div>
+
             <h2 class="bold">Choisir un thème</h2>
 
             <div class="quiz-themes">

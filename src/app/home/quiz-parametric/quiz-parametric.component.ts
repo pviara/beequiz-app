@@ -18,6 +18,8 @@ type ValidatedQuizParamsFormValues = {
     styleUrls: ['./quiz-parametric.component.scss'],
 })
 export class QuizParametricComponent implements OnInit {
+    errorMessage = '';
+
     quizParameters = new QuizParameters([], []);
 
     quizParamsForm!: FormGroup<QuizParamsForm>;
@@ -50,7 +52,7 @@ export class QuizParametricComponent implements OnInit {
     }
 
     isQuizBeingLoaded(): boolean {
-        return this.quizService.hasQuizBeenRequested;
+        return this.quizService.hasQuizBeenRequested && !this.errorMessage;
     }
 
     isQuizThemeSelected({ id }: QuizTheme): boolean {
@@ -67,9 +69,17 @@ export class QuizParametricComponent implements OnInit {
 
         this.quizService
             .launchQuizGeneration(quizThemeId, quizNumberOfQuestions)
-            .subscribe((_) =>
-                this.router.navigate(['/play'], { replaceUrl: true }),
-            );
+            .subscribe({
+                next: (quiz) => {
+                    if (quiz) {
+                        this.router.navigate(['/play'], { replaceUrl: true });
+                    }
+                },
+                error: () => {
+                    this.errorMessage =
+                        '😔 Une erreur est survenue, merci de réessayer.';
+                },
+            });
     }
 
     mustSpinnerBeDisplayed(): boolean {
