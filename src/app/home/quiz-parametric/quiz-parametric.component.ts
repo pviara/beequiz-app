@@ -64,6 +64,8 @@ export class QuizParametricComponent implements OnInit {
             return;
         }
 
+        this.errorMessage = '';
+
         const { quizThemeId, quizNumberOfQuestions } =
             this.validateQuizParamsForm();
 
