@@ -11,8 +11,14 @@ import { environment } from '../environments/environment';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+    noErrorThrown = true;
+
+    handleImageError(): void {
+        this.noErrorThrown = false;
+    }
+
     getQRCode(): string {
         const encodedURI = encodeURI(environment.WEB_URL);
-        return `http://api.qrserver.com/v1/create-qr-code/?data=${encodedURI}&size=250x250&bgcolor=254-236-217`;
+        return `https://api.qrserver.com/v1/create-qr-code/?data=${encodedURI}&size=250x250&bgcolor=254-236-217`;
     }
 }

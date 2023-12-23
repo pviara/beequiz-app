@@ -7,9 +7,18 @@
       <img
         draggable="false"
         src="../assets/images/bee-ai.png"/>
-      <img
-        draggable="false"
-        [src]="getQRCode()"/>
+
+      <ng-container *ngIf="noErrorThrown; else errorThrown;">
+        <img
+          draggable="false"
+          [src]="getQRCode()"
+          (error)="handleImageError()"/>
+      </ng-container>
+      <ng-template #errorThrown>
+        <p class="adblock-warning">
+          Merci de désactiver AdBlock pour voir ce QRCode.
+        </p>
+      </ng-template>
     </div>
     <h1 class="bold">📱 Oups...</h1>
     <p>

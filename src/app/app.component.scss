@@ -25,10 +25,21 @@
             gap: 2rem;
 
             img,
-            .qrcode {
+            .adblock-warning {
                 width: 250px;
 
                 margin-bottom: 2rem;
+            }
+
+            .adblock-warning {
+                display: flex;
+                align-items: center;
+                text-align: center;
+
+                max-width: 250px;
+                background-color: #feecd9;
+
+                user-select: none;
             }
         }
 
