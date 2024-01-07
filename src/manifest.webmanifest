@@ -1,6 +1,6 @@
 {
-  "name": "beequiz-app",
-  "short_name": "beequiz-app",
+  "name": "BeeQuiz",
+  "short_name": "BeeQuiz",
   "theme_color": "#fff",
   "background_color": "#fff",
   "display": "standalone",
