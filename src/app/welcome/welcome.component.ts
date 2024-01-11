@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { WelcomeService } from '../core/services/welcome.service';
+import { UserService } from '../core/services/user.service';
 
 @Component({
     selector: 'welcome',
@@ -12,9 +12,13 @@ import { WelcomeService } from '../core/services/welcome.service';
 })
 export class WelcomeComponent {
     private router = inject(Router);
+    private userService = inject(UserService);
 
     onNext(): void {
-        // todo mark user as welcomed : this.welcomeService.markUserAsWelcomed();
-        this.router.navigate(['../home']);
+        this.userService.welcomeUser().subscribe({
+            next: () => {
+                this.router.navigate(['../home']);
+            },
+        });
     }
 }
