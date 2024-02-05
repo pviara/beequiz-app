@@ -24,7 +24,8 @@ export class QuizStepComponent {
 
     mustConfirmButtonBeDisabled(): boolean {
         return (
-            this.noAnswerSelected() || this.givenAnswerState().hasAnswerBeenGiven
+            this.noAnswerSelected() ||
+            this.givenAnswerState().hasAnswerBeenGiven
         );
     }
 

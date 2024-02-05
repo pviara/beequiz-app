@@ -10,7 +10,7 @@ import { QuizTheme } from '../../../core/model/quiz-theme';
     ],
 })
 export class QuizThemeComponent {
-    data = input.required<QuizTheme>() ;
+    data = input.required<QuizTheme>();
 
     isSelected = input.required<boolean>();
 
@@ -18,7 +18,7 @@ export class QuizThemeComponent {
     selectedQuizTheme = new EventEmitter<QuizTheme>();
 
     computeImagePath(): string {
-        return `../../../../assets/images/${this.data().code}.png`;
+        return `../../../../assets/images/${this.data().code}.svg`;
     }
 
     onContainerClick(): void {
