@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, input } from '@angular/core';
 import { Answer } from '../../core/model/quiz';
 import { GivenAnswerState } from './model/given-answer-state';
 
@@ -8,14 +8,11 @@ import { GivenAnswerState } from './model/given-answer-state';
     styleUrls: ['./quiz-step.component.scss'],
 })
 export class QuizStepComponent {
-    @Input()
-    answers!: Answer[];
+    answers = input.required<Answer[]>();
 
-    @Input()
-    givenAnswerState!: GivenAnswerState;
+    givenAnswerState = input.required<GivenAnswerState>();
 
-    @Input()
-    questionLabel!: string;
+    questionLabel = input.required<string>();
 
     @Output()
     confirmedAnswer = new EventEmitter<number>();
@@ -27,12 +24,12 @@ export class QuizStepComponent {
 
     mustConfirmButtonBeDisabled(): boolean {
         return (
-            this.noAnswerSelected() || this.givenAnswerState.hasAnswerBeenGiven
+            this.noAnswerSelected() || this.givenAnswerState().hasAnswerBeenGiven
         );
     }
 
     mustNextButtonBeDisabled(): boolean {
-        return !this.givenAnswerState.hasAnswerBeenGiven;
+        return !this.givenAnswerState().hasAnswerBeenGiven;
     }
 
     onAnswerConfirmed(): void {
@@ -40,7 +37,7 @@ export class QuizStepComponent {
     }
 
     onAnswerSelected(answerId: number): void {
-        if (this.givenAnswerState.hasAnswerBeenGiven) {
+        if (this.givenAnswerState().hasAnswerBeenGiven) {
             return;
         }
 

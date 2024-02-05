@@ -1,12 +1,12 @@
 <div class="container">
     <button
-        [disabled]="isConfirmButtonDisabled"
-        [ngClass]="isConfirmButtonDisabled ? 'disabled' : 'primary'"
+        [disabled]="isConfirmButtonDisabled()"
+        [ngClass]="isConfirmButtonDisabled() ? 'disabled' : 'primary'"
         (click)="confirmAnswer()">
 
-        @if (givenAnswerState.hasAnswerBeenGiven) {
+        @if (givenAnswerState().hasAnswerBeenGiven) {
 
-            @if (givenAnswerState.wasGivenAnswerCorrect) {
+            @if (givenAnswerState().wasGivenAnswerCorrect) {
                 🥳 Bravo !
 
             } @else {
@@ -19,9 +19,9 @@
     </button>
 
     <button
-        [disabled]="isNextButtonDisabled"
-        [ngClass]="isNextButtonDisabled ? 'disabled' : 'primary'"
+        [disabled]="isNextButtonDisabled()"
+        [ngClass]="isNextButtonDisabled() ? 'disabled' : 'primary'"
         (click)="goToNextStep()">
         Suivant
     </button>
-</div>
+</div>""

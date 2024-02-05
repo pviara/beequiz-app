@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, input } from '@angular/core';
 
 @Component({
     selector: 'snackbar',
@@ -6,16 +6,14 @@ import { Component, Input } from '@angular/core';
     styleUrls: ['./snackbar.component.scss'],
 })
 export class SnackbarComponent {
-    @Input()
-    errorMessage!: string;
+    errorMessage = input<string>();
 
-    @Input()
-    successMessage!: string;
+    successMessage = input<string>();
 
     mustAnyMessageBeDisplayed(): boolean {
         return (
-            new Boolean(this.errorMessage).valueOf() ||
-            new Boolean(this.successMessage).valueOf()
+            new Boolean(this.errorMessage()).valueOf() ||
+            new Boolean(this.successMessage()).valueOf()
         );
     }
 }

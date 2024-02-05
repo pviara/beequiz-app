@@ -1,8 +1,8 @@
 <div class="container">
-    @for (answer of answers; track answer.id) {
+    @for (answer of answers(); track answer.id) {
         <answer
             [answer]="answer"
-            [givenAnswerState]="givenAnswerState"
+            [givenAnswerState]="givenAnswerState()"
             [isSelected]="mustBeSelected(answer)"
             (answerSelected)="onAnswerSelected($event)"
         />

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, input } from '@angular/core';
 import { QuizTheme } from '../../../core/model/quiz-theme';
 
 @Component({
@@ -10,20 +10,18 @@ import { QuizTheme } from '../../../core/model/quiz-theme';
     ],
 })
 export class QuizThemeComponent {
-    @Input()
-    data!: QuizTheme;
+    data = input.required<QuizTheme>() ;
 
-    @Input()
-    isSelected!: boolean;
+    isSelected = input.required<boolean>();
 
     @Output()
     selectedQuizTheme = new EventEmitter<QuizTheme>();
 
     computeImagePath(): string {
-        return `../../../../assets/images/${this.data.code}.png`;
+        return `../../../../assets/images/${this.data().code}.png`;
     }
 
     onContainerClick(): void {
-        this.selectedQuizTheme.emit(this.data);
+        this.selectedQuizTheme.emit(this.data());
     }
 }

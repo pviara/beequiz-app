@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, input } from '@angular/core';
 
 @Component({
     selector: 'quiz-number-of-questions',
@@ -9,16 +9,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     ],
 })
 export class QuizNumberOfQuestionsComponent {
-    @Input()
-    data!: number;
+    data = input.required<number>();
 
-    @Input()
-    isSelected!: boolean;
+    isSelected = input.required<boolean>();
 
     @Output()
     selectedNumberOfQuestions = new EventEmitter<number>();
 
     onContainerClick(): void {
-        this.selectedNumberOfQuestions.emit(this.data);
+        this.selectedNumberOfQuestions.emit(this.data());
     }
 }

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, input } from '@angular/core';
 import { QuizScoreEvaluation } from '../../core/model/quiz';
 
 @Component({
@@ -7,11 +7,9 @@ import { QuizScoreEvaluation } from '../../core/model/quiz';
     styleUrls: ['./quiz-results.component.scss'],
 })
 export class QuizResultsComponent {
-    @Input()
-    scoreMessage!: string;
+    scoreMessage = input.required<string>();
 
-    @Input()
-    scoreEvaluation!: QuizScoreEvaluation;
+    scoreEvaluation = input.required<QuizScoreEvaluation>();
 
     @Output()
     exitQuizRequested = new EventEmitter<never>();

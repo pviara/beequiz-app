@@ -1,5 +1,5 @@
 import { Answer } from '../../../core/model/quiz';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, input } from '@angular/core';
 import { GivenAnswerState } from '../model/given-answer-state';
 
 @Component({
@@ -8,27 +8,24 @@ import { GivenAnswerState } from '../model/given-answer-state';
     styleUrls: ['./answers-container.component.scss'],
 })
 export class AnswersContainerComponent {
-    @Input()
-    answers!: Answer[];
+    answers = input.required<Answer[]>();
 
-    @Input()
-    givenAnswerState!: GivenAnswerState;
+    givenAnswerState = input.required<GivenAnswerState>();
 
-    @Input()
-    selectedAnswerId?: number;
+    selectedAnswerId = input<number>();
 
     @Output()
     answerSelected = new EventEmitter<number>();
 
     mustBeSelected(answer: Answer): boolean {
         return (
-            this.selectedAnswerId === answer.id &&
-            !this.givenAnswerState.hasAnswerBeenGiven
+            this.selectedAnswerId() === answer.id &&
+            !this.givenAnswerState().hasAnswerBeenGiven
         );
     }
 
     onAnswerSelected(answerId: number): void {
-        if (this.givenAnswerState.hasAnswerBeenGiven) {
+        if (this.givenAnswerState().hasAnswerBeenGiven) {
             return;
         }
 

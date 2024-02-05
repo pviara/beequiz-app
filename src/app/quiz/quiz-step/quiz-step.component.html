@@ -1,18 +1,18 @@
 <div class="container">
     <h2 class="semi-bold">
-        {{ questionLabel }}
+        {{ questionLabel() }}
     </h2>
     <div class="answers">
         <answers-container
-            [answers]="answers"
-            [givenAnswerState]="givenAnswerState"
+            [answers]="answers()"
+            [givenAnswerState]="givenAnswerState()"
             [selectedAnswerId]="selectedAnswerId"
             (answerSelected)="onAnswerSelected($event)">
         </answers-container>
     </div>
     <div class="actions">
         <actions-container
-            [givenAnswerState]="givenAnswerState"
+            [givenAnswerState]="givenAnswerState()"
             [isConfirmButtonDisabled]="mustConfirmButtonBeDisabled()"
             [isNextButtonDisabled]="mustNextButtonBeDisabled()"
             (answerConfirmed)="onAnswerConfirmed()"

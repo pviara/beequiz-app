@@ -4,9 +4,9 @@
             'correct': wasThisGivenAnswerCorrect(),
             'disabled': wasAnswerGiven(),
             'incorrect': wasThisGivenAnswerIncorrect(),
-            'selected': isSelected,
+            'selected': isSelected(),
         }"
         (click)="selectAnswer()">
-        {{ answer.label }}
+        {{ answer().label }}
     </p>
 </div>

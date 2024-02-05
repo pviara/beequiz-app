@@ -1,5 +1,5 @@
 import { Answer } from '../../../../core/model/quiz';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, input } from '@angular/core';
 import { GivenAnswerState } from '../../model/given-answer-state';
 
 @Component({
@@ -8,39 +8,36 @@ import { GivenAnswerState } from '../../model/given-answer-state';
     styleUrls: ['./answer.component.scss'],
 })
 export class AnswerComponent {
-    @Input()
-    answer!: Answer;
+    answer = input.required<Answer>();
 
-    @Input()
-    givenAnswerState!: GivenAnswerState;
+    givenAnswerState = input.required<GivenAnswerState>();
 
-    @Input()
-    isSelected!: boolean;
+    isSelected = input.required<boolean>();
 
     @Output()
     answerSelected = new EventEmitter<number>();
 
     selectAnswer(): void {
-        this.answerSelected.emit(this.answer.id);
+        this.answerSelected.emit(this.answer().id);
     }
 
     wasAnswerGiven(): boolean {
-        return new Boolean(this.givenAnswerState.givenAnswerId).valueOf();
+        return new Boolean(this.givenAnswerState().givenAnswerId).valueOf();
     }
 
     wasThisGivenAnswerCorrect(): boolean {
         return (
-            this.givenAnswerState.givenAnswerId === this.answer.id &&
-            this.givenAnswerState.hasAnswerBeenGiven &&
-            this.givenAnswerState.wasGivenAnswerCorrect
+            this.givenAnswerState().givenAnswerId === this.answer().id &&
+            this.givenAnswerState().hasAnswerBeenGiven &&
+            this.givenAnswerState().wasGivenAnswerCorrect
         );
     }
 
     wasThisGivenAnswerIncorrect(): boolean {
         return (
-            this.givenAnswerState.givenAnswerId === this.answer.id &&
-            this.givenAnswerState.hasAnswerBeenGiven &&
-            !this.givenAnswerState.wasGivenAnswerCorrect
+            this.givenAnswerState().givenAnswerId === this.answer().id &&
+            this.givenAnswerState().hasAnswerBeenGiven &&
+            !this.givenAnswerState().wasGivenAnswerCorrect
         );
     }
 }

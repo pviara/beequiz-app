@@ -1,6 +1,6 @@
 <p
     class="container semi-bold"
-    [ngClass]="isSelected ? 'selected' : ''"
+    [ngClass]="isSelected() ? 'selected' : ''"
     (click)="onContainerClick()">
-    {{ data }}
+    {{ data() }}
 </p>

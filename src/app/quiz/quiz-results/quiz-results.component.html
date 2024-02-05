@@ -1,12 +1,12 @@
 <div class="container">
     <h1 class="bold">
-        @if (scoreEvaluation.isScoreBad()) {
+        @if (scoreEvaluation().isScoreBad()) {
             😔 DOMMAGE...
             
-        } @else if (scoreEvaluation.isScoreGood()) {
+        } @else if (scoreEvaluation().isScoreGood()) {
             🎉 BRAVO !
 
-        } @else if (scoreEvaluation.isScoreMedium()) {
+        } @else if (scoreEvaluation().isScoreMedium()) {
             👍 PAS MAL !
         }
     </h1>
@@ -15,11 +15,11 @@
         <span
             class="note"
             [ngClass]="{
-                'good-score': scoreEvaluation.isScoreGood(),
-                'medium-score': scoreEvaluation.isScoreMedium(),
-                'bad-score': scoreEvaluation.isScoreBad(),
+                'good-score': scoreEvaluation().isScoreGood(),
+                'medium-score': scoreEvaluation().isScoreMedium(),
+                'bad-score': scoreEvaluation().isScoreBad(),
             }">
-            {{ scoreMessage }}
+            {{ scoreMessage() }}
         </span>
         au quiz !
     </h1>

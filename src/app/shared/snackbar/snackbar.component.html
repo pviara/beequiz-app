@@ -1,12 +1,12 @@
 <div class="container">
     @if (mustAnyMessageBeDisplayed()) {
-        @if (errorMessage) {
+        @if (errorMessage()) {
             <p class="error">
-                {{ errorMessage }}
+                {{ errorMessage() }}
             </p>
         } @else {
             <p class="success">
-                {{ successMessage }}
+                {{ successMessage() }}
             </p>
         }
     }

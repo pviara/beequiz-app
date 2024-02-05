@@ -1,6 +1,6 @@
 <div
     class="container"
-    [ngClass]="isSelected ? 'selected' : ''"
+    [ngClass]="isSelected() ? 'selected' : ''"
     (click)="onContainerClick()">
     <img
         draggable="false"
