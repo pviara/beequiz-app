@@ -1,15 +1,14 @@
 <div class="container">
-    <ng-container *ngIf="mustSpinnerBeDisplayed(); else loaded;">
-        <app-spinner></app-spinner>
+    @if (mustSpinnerBeDisplayed()) {
+        <app-spinner/>
 
-        <ng-container *ngIf="isQuizBeingLoaded();">
+        @if (isQuizBeingLoaded()) {
             <h3>
                 💡 Génération du quiz en cours... Merci de patienter.
             </h3>
-        </ng-container>
-    </ng-container>
-    
-    <ng-template #loaded>
+        }
+
+    } @else {
         <div class="parameters">
             <div class="snackbar">
                 <snackbar
@@ -49,5 +48,5 @@
             (click)="launchQuiz()">
             C'est parti !
         </button>
-    </ng-template>
+    }
 </div>

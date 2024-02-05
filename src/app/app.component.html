@@ -1,31 +1,30 @@
 <main class="container">
-  <div class="content">
-    <router-outlet></router-outlet>
-  </div>
-  <div class="warning">
-    <div class="images">
-      <img
-        draggable="false"
-        src="../assets/images/bee-ai.png"/>
-
-      <ng-container *ngIf="noErrorThrown; else errorThrown;">
-        <img
-          draggable="false"
-          [src]="getQRCode()"
-          (error)="handleImageError()"/>
-      </ng-container>
-      <ng-template #errorThrown>
-        <p class="adblock-warning">
-          Merci de désactiver AdBlock pour voir ce QRCode.
-        </p>
-      </ng-template>
+    <div class="content">
+        <router-outlet/>
     </div>
-    <h1 class="bold">📱 Oups...</h1>
-    <p>
-      Je n'ai développé <span class="bold">que la version mobile</span> de BeeQuiz.
-    </p>
-    <p>
-      On se donne rendez-vous <span class="bold">sur votre téléphone</span> !
-    </p>
-  </div>
+    <div class="warning">
+        <div class="images">
+            <img
+                draggable="false"
+                src="../assets/images/bee-ai.png"/>
+            
+            @if (noErrorThrown) {
+                <img
+                    draggable="false"
+                    [src]="getQRCode()"
+                    (error)="handleImageError()"/>
+            } @else {
+                <p class="adblock-warning">
+                    Merci de désactiver votre bloqueur de publicité pour voir ce QRCode.
+                </p>
+            }
+        </div>
+        <h1 class="bold">📱 Oups...</h1>
+        <p>
+            Je n'ai développé <span class="bold">que la version mobile</span> de BeeQuiz.
+        </p>
+        <p>
+            On se donne rendez-vous <span class="bold">sur votre téléphone</span> !
+        </p>
+    </div>
 </main>

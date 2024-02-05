@@ -1,14 +1,14 @@
 <div class="container">
     <h1 class="bold">
-        <ng-container *ngIf="scoreEvaluation.isScoreBad();">
+        @if (scoreEvaluation.isScoreBad()) {
             😔 DOMMAGE...
-        </ng-container>
-        <ng-container *ngIf="scoreEvaluation.isScoreGood();">
+            
+        } @else if (scoreEvaluation.isScoreGood()) {
             🎉 BRAVO !
-        </ng-container>
-        <ng-container *ngIf="scoreEvaluation.isScoreMedium();">
+
+        } @else if (scoreEvaluation.isScoreMedium()) {
             👍 PAS MAL !
-        </ng-container>
+        }
     </h1>
     <h1 class="bold">
         Vous avez obtenu la note de

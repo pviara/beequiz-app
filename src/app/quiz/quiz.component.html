@@ -9,8 +9,9 @@
         </button>
     </div>
     <div class="content">
-        <ng-container *ngIf="hasQuizBeenLoaded(); else quizIsLoading;">
-            <ng-container *ngIf="quiz.isInProgress(); else quizIsFinished;">
+        @if (hasQuizBeenLoaded()) {
+
+            @if(quiz.isInProgress()) {
                 <h3>
                     {{ quiz.formatCurrentStepPaginator() }}
                 </h3>
@@ -19,21 +20,19 @@
                     [givenAnswerState]="givenAnswerState"
                     [questionLabel]="quiz.getCurrentQuestionLabel()"
                     (confirmedAnswer)="onConfirmedAnswer($event)"
-                    (nextStepRequested)="onNextStepRequested()">
-                </quiz-step>
-            </ng-container>
+                    (nextStepRequested)="onNextStepRequested()"
+                />
 
-            <ng-template #quizIsFinished>
+            } @else {
                 <quiz-results
                     [scoreEvaluation]="quiz.getScoreEvaluation()"
                     [scoreMessage]="quiz.formatScoreMessage()"
-                    (exitQuizRequested)="onExistQuizRequested()">
-                </quiz-results>
-            </ng-template>
-        </ng-container>
-        
-        <ng-template #quizIsLoading>
-            <app-spinner></app-spinner>
-        </ng-template>
+                    (exitQuizRequested)="onExistQuizRequested()"
+                />
+            }
+            
+        } @else {
+            <app-spinner/>
+        }
     </div>
 </div>
