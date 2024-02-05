@@ -11,36 +11,30 @@
     } @else {
         <div class="parameters">
             <div class="snackbar">
-                <snackbar
-                    [errorMessage]="errorMessage">
-                </snackbar>
+                <snackbar [errorMessage]="errorMessage"/>
             </div>
 
             <h2 class="bold">Choisir un thème</h2>
 
             <div class="quiz-themes">
-                <div
-                    class="quiz-theme-parameter"
-                    *ngFor="let parameter of quizParameters.themes">
+                @for (parameter of quizParameters.themes; track parameter.id) {
                     <quiz-theme
                         [data]="parameter"
                         [isSelected]="isQuizThemeSelected(parameter)"
-                        (selectedQuizTheme)="onQuizThemeSelect($event)">
-                    </quiz-theme>
-                </div>
+                        (selectedQuizTheme)="onQuizThemeSelect($event)"
+                    />
+                }
             </div>
 
             <h2 class="bold">Nombre de questions</h2>
             <div class="quiz-number-of-questions">
-                <div
-                    class="quiz-number-of-questions-parameter"
-                    *ngFor="let parameter of quizParameters.numberOfQuestions">
+                @for (parameter of quizParameters.numberOfQuestions; track parameter) {
                     <quiz-number-of-questions
                         [data]="parameter"
                         [isSelected]="isNumberOfQuestionsSelected(parameter)"
-                        (selectedNumberOfQuestions)="onNumberOfQuestionsSelect($event)">
-                    </quiz-number-of-questions>
-                </div>
+                        (selectedNumberOfQuestions)="onNumberOfQuestionsSelect($event)"
+                    />
+                }
             </div>
         </div>
         <button
