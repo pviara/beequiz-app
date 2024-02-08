@@ -1,4 +1,5 @@
 import { Answer, Question, Quiz } from '../model/quiz';
+import { AuthService } from './auth.service';
 import { BehaviorSubject, Observable, of, switchMap, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
@@ -12,6 +13,7 @@ export class QuizService {
 
     generatedQuiz = new BehaviorSubject<Quiz | null>(null);
 
+    private authService = inject(AuthService);
     private httpClient = inject(HttpClient);
 
     private apiEndpoint = `${environment.API_URL}/quiz`;
@@ -30,6 +32,11 @@ export class QuizService {
         return this.httpClient
             .get<Question[]>(
                 `${this.apiEndpoint}/questions?amount=${numberOfQuestions}&themeId=${quizThemeId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${this.authService.signedInUser?.token}`,
+                    },
+                },
             )
             .pipe(
                 tap((questions) => {

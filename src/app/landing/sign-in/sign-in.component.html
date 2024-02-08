@@ -5,38 +5,14 @@
     </p>
     
     <div class="form">
-        <snackbar
-            [errorMessage]="errorMessage"
-            [successMessage]="signedInMessage"
-        />
-    
-        <form
-            [formGroup]="signInForm"
-            (ngSubmit)="onSignIn(signInForm)">
-            <input
-                formControlName="username"
-                type="text"
-                placeholder="Identifiant" />
-            
-            <input
-                formControlName="password"
-                type="password"
-                placeholder="●●●●●●●●●●●" />
-    
-            <button
-                type="submit"
-                [disabled]="signInForm.invalid || signedInMessage"
-                [ngClass]="signInForm.invalid || signedInMessage ? 'disabled' : 'primary'">
-                Se Connecter
-            </button>
-            
-            <a routerLink="sign-up">
-                <button
-                    [ngClass]="signedInMessage ? 'disabled' : ''"
-                    [disabled]="signedInMessage">
-                    Créer un compte
-                </button>
-            </a>
-        </form>
+        <a
+            class="google-sign-in"
+            [href]="getGoogleSignInLink()">
+            <img src="../../../assets/images/google.svg"/>
+            Se connecter avec&nbsp;
+            <span class="semi-bold">
+                Google
+            </span>
+        </a>
     </div>
 </div>

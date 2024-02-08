@@ -1,7 +1,8 @@
 import { AuthService } from '../../core/services/auth.service';
 import { Component, OnInit, inject } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SignInForm } from './model/sign-in-form';
 
 @Component({
@@ -17,6 +18,7 @@ export class SignInComponent implements OnInit {
 
     private authService = inject(AuthService);
     private formBuilder = inject(FormBuilder);
+    private route = inject(ActivatedRoute);
     private router = inject(Router);
 
     ngOnInit(): void {
@@ -28,6 +30,17 @@ export class SignInComponent implements OnInit {
                 Validators.required,
             ]),
         });
+
+        const { token } = this.route.snapshot.queryParams;
+        if (token) {
+            this.authService.getAuthenticatedUserFrom(token).subscribe({
+                next: () => this.router.navigate(['../welcome']),
+            });
+        }
+    }
+
+    getGoogleSignInLink(): string {
+        return `${environment.API_URL}/auth/google`;
     }
 
     onSignIn(form: FormGroup<SignInForm>): void {
