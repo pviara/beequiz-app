@@ -6,7 +6,10 @@
 
     .intro {
         font-size: 1.5rem;
+    }
 
+    .intro,
+    .form {
         animation-name: slideInFromBottom;
         animation-duration: 0.7s;
     }
@@ -15,5 +18,33 @@
         display: flex;
         flex-direction: column;
         gap: 1rem;
+
+        .google-sign-in {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 2rem;
+            border: none;
+
+            padding: 1rem;
+
+            font-size: 1.1rem;
+            background: rgb(37, 44, 45);
+            background: linear-gradient(
+                180deg,
+                rgba(37, 44, 45, 1) 0%,
+                rgba(54, 62, 67, 1) 100%
+            );
+
+            text-decoration: none;
+            text-align: center;
+            color: #fff;
+
+            img {
+                margin-right: 0.5rem;
+                width: 20px;
+            }
+        }
     }
 }

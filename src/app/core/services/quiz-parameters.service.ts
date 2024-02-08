@@ -1,7 +1,7 @@
+import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { QuizTheme } from '../model/quiz-theme';
 import { QuizParameters } from '../model/quiz-parameters';
-import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root',

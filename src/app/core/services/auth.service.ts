@@ -12,6 +12,7 @@ import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
+import { User } from '../model/user';
 
 const SIGNED_IN_USER_STORAGE_KEY = 'signed_in_user';
 
@@ -59,7 +60,7 @@ export class AuthService {
     constructor() {
         if (this.signedInUser) {
             const { token } = this.signedInUser;
-            this.checkToken(token).subscribe();
+            this.checkTokenResponse(token).subscribe();
         }
     }
 
@@ -85,7 +86,26 @@ export class AuthService {
             );
     }
 
-    private checkToken(token: string): Observable<any> {
+    getAuthenticatedUserFrom(token: string): Observable<User> {
+        return this.httpClient
+            .get<User>(this.authEndpoint, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .pipe(
+                tap(
+                    (user) =>
+                        (this.signedInUser = {
+                            token,
+                            user,
+                        }),
+                ),
+                catchError(() => of()),
+            );
+    }
+
+    private checkTokenResponse(token: string): Observable<void> {
         return this.httpClient
             .get(this.authEndpoint, {
                 headers: {
