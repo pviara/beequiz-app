@@ -2,20 +2,18 @@
     <h2 class="semi-bold">
         {{ questionLabel() }}
     </h2>
-    <div class="answers">
-        <answers-container
-            [answers]="answers()"
-            [givenAnswerState]="givenAnswerState()"
-            [selectedAnswerId]="selectedAnswerId"
-            (answerSelected)="onAnswerSelected($event)">
-        </answers-container>
-    </div>
-    <div class="actions">
-        <actions-container
-            [givenAnswerState]="givenAnswerState()"
-            [noAnswerSelected]="noAnswerSelected()"
-            (answerConfirmed)="onAnswerConfirmed()"
-            (nextStepRequested)="onNextStepRequested()">
-        </actions-container>
-    </div>
+
+    <answers-container
+        [answers]="answers()"
+        [givenAnswerState]="givenAnswerState()"
+        [selectedAnswerId]="selectedAnswerId"
+        (answerSelected)="onAnswerSelected($event)"
+    />
+    
+    <actions-container
+        [givenAnswerState]="givenAnswerState()"
+        [noAnswerSelected]="noAnswerSelected()"
+        (answerConfirmed)="onAnswerConfirmed()"
+        (nextStepRequested)="onNextStepRequested()"
+    />
 </div>

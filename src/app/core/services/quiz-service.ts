@@ -18,6 +18,21 @@ export class QuizService {
 
     private apiEndpoint = `${environment.API_URL}/quiz`;
 
+    answerQuestion(answerId: string, questionId: string): Observable<any> {
+        return this.httpClient.post(
+            `${this.apiEndpoint}/answer`,
+            {
+                answerId,
+                questionId,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${this.authService.signedInUser?.token}`,
+                },
+            },
+        );
+    }
+
     killQuiz(): void {
         this.generatedQuiz.next(null);
         this.hasQuizBeenRequested = false;

@@ -4,6 +4,7 @@ import { NavigationService } from '../core/services/navigation.service';
 import { Quiz } from '../core/model/quiz';
 import { QuizService } from '../core/services/quiz-service';
 import { Router } from '@angular/router';
+import { delay, tap } from 'rxjs';
 
 @Component({
     selector: 'quiz',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 export class QuizComponent implements OnDestroy, OnInit {
     givenAnswerState: GivenAnswerState = {
         hasAnswerBeenGiven: false,
-        wasGivenAnswerCorrect: false,
+        hasAnswerBeenChecked: false,
     };
 
     quiz!: Quiz;
@@ -47,13 +48,9 @@ export class QuizComponent implements OnDestroy, OnInit {
         return new Boolean(this.quiz).valueOf();
     }
 
-    onConfirmedAnswer(answerId: number): void {
-        const wasGivenAnswerCorrect = this.quiz.handleScoreForAnswer(answerId);
-        this.givenAnswerState = {
-            givenAnswerId: answerId,
-            hasAnswerBeenGiven: true,
-            wasGivenAnswerCorrect,
-        };
+    onConfirmedAnswer(answerId: string): void {
+        this.markAnswerAsGiven(answerId);
+        this.handleAnsweredQuestion(answerId);
     }
 
     onExistQuizRequested(): void {
@@ -61,6 +58,8 @@ export class QuizComponent implements OnDestroy, OnInit {
     }
 
     onNextStepRequested(): void {
+        console.log('next step requested');
+
         if (this.quiz.hasQuizBeenCompleted()) {
             this.exitQuiz();
             return;
@@ -74,7 +73,33 @@ export class QuizComponent implements OnDestroy, OnInit {
         this.givenAnswerState = {
             givenAnswerId: undefined,
             hasAnswerBeenGiven: false,
-            wasGivenAnswerCorrect: false,
+            hasAnswerBeenChecked: false,
         };
+    }
+
+    private markAnswerAsGiven(answerId: string): void {
+        this.givenAnswerState.hasAnswerBeenGiven = true;
+        this.givenAnswerState.givenAnswerId = answerId;
+    }
+
+    private handleAnsweredQuestion(answerId: string): void {
+        this.quizService
+            .answerQuestion(answerId, this.quiz.getCurrentQuestionId())
+            .pipe(delay(200))
+            .subscribe(({ correctAnswerId, isCorrect }) => {
+                this.markAnswerAsChecked();
+
+                if (isCorrect) {
+                    this.givenAnswerState.correctAnswerId = answerId;
+                } else {
+                    this.givenAnswerState.correctAnswerId = correctAnswerId;
+                }
+
+                this.quiz.handleScoreForAnswer(answerId, isCorrect);
+            });
+    }
+
+    private markAnswerAsChecked(): void {
+        this.givenAnswerState.hasAnswerBeenChecked = true;
     }
 }

@@ -1,12 +1,15 @@
 <div class="container">
     @if (givenAnswerState().hasAnswerBeenGiven) {
-        <button (click)="goToNextStep()">
+        <button
+            [disabled]="mustNextButtonBeDisabled()"
+            [ngClass]="{ 'disabled': mustNextButtonBeDisabled() }"
+            (click)="goToNextStep()">
             Suivant
         </button>
     } @else {
         <button
-            [disabled]="noAnswerSelected()"
-            [ngClass]="{ 'disabled': noAnswerSelected() }"
+            [disabled]="mustConfirmButtonBeDisabled()"
+            [ngClass]="{ 'disabled': mustConfirmButtonBeDisabled() }"
             (click)="confirmAnswer()">
             Valider
         </button>

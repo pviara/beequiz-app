@@ -15,12 +15,12 @@ export class QuizStepComponent {
     questionLabel = input.required<string>();
 
     @Output()
-    confirmedAnswer = new EventEmitter<number>();
+    confirmedAnswer = new EventEmitter<string>();
 
     @Output()
     nextStepRequested = new EventEmitter<never>();
 
-    selectedAnswerId?: number;
+    selectedAnswerId?: string;
 
     mustConfirmButtonBeDisabled(): boolean {
         return (
@@ -41,11 +41,7 @@ export class QuizStepComponent {
         this.confirmedAnswer.emit(this.selectedAnswerId);
     }
 
-    onAnswerSelected(answerId: number): void {
-        if (this.givenAnswerState().hasAnswerBeenGiven) {
-            return;
-        }
-
+    onAnswerSelected(answerId: string): void {
         this.selectedAnswerId = answerId;
     }
 

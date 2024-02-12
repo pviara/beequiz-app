@@ -1,12 +1,17 @@
 <div class="container">
     <p
-        [ngClass]="{
-            'correct': wasThisGivenAnswerCorrect(),
-            'disabled': wasAnswerGiven(),
-            'incorrect': wasThisGivenAnswerIncorrect(),
-            'selected': isSelected(),
-        }"
+        [ngClass]="getAnswerStyle()"
         (click)="selectAnswer()">
         {{ answer().label }}
     </p>
+    <!-- <p
+        [ngClass]="{
+            'correct': wasThisAnswerCorrect(),
+            'disabled': wasAnswerGiven(),
+            'incorrect': wasThisGivenAnswerIncorrect(),
+            'selected': isSelected()
+        }"
+        (click)="selectAnswer()">
+        {{ answer().label }}
+    </p> -->
 </div>

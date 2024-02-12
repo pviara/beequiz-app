@@ -1,6 +1,6 @@
 export class Question {
     constructor(
-        readonly id: number,
+        readonly id: string,
         readonly label: string,
         readonly answers: Answer[],
     ) {}
@@ -8,7 +8,7 @@ export class Question {
 
 export class Answer {
     constructor(
-        readonly id: number,
+        readonly id: string,
         readonly label: string,
         readonly isCorrect?: true,
     ) {}
@@ -36,7 +36,7 @@ export class QuizScoreEvaluation {
 export class Quiz {
     private currentQuestionIndex = 0;
 
-    private givenAnswers: number[] = [];
+    private givenAnswers: string[] = [];
 
     private score = 0;
 
@@ -54,6 +54,10 @@ export class Quiz {
         return this.getCurrentQuestion().answers;
     }
 
+    getCurrentQuestionId(): string {
+        return this.getCurrentQuestion().id;
+    }
+
     getCurrentQuestionLabel(): string {
         return this.getCurrentQuestion().label;
     }
@@ -63,18 +67,15 @@ export class Quiz {
     }
 
     goToNextQuestion(): void {
-        if (this.isCurrentQuestionTheLastOne()) {
-            return;
-        }
-
         this.currentQuestionIndex++;
     }
 
     hasQuizBeenCompleted(): boolean {
+        console.log(this.givenAnswers.length === this.questions.length);
         return this.givenAnswers.length === this.questions.length;
     }
 
-    isGivenAnswerCorrect(answerId: number): boolean {
+    isGivenAnswerCorrect(answerId: string): boolean {
         const correctAnswer = this.getCurrentQuestionCorrectAnswer();
         return correctAnswer.id === answerId;
     }
@@ -83,14 +84,11 @@ export class Quiz {
         return this.givenAnswers.length < this.questions.length;
     }
 
-    handleScoreForAnswer(answerId: number): boolean {
+    handleScoreForAnswer(answerId: string, isCorrect: boolean): void {
         this.givenAnswers.push(answerId);
-
-        if (this.isGivenAnswerCorrect(answerId)) {
+        if (isCorrect) {
             this.increaseScore();
-            return true;
         }
-        return false;
     }
 
     private getCurrentQuestion(): Question {
@@ -111,9 +109,5 @@ export class Quiz {
 
     private increaseScore(): void {
         this.score++;
-    }
-
-    private isCurrentQuestionTheLastOne(): boolean {
-        return !this.questions[this.currentQuestionIndex + 1];
     }
 }

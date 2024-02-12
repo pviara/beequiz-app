@@ -1,5 +1,6 @@
 export type GivenAnswerState = {
-    givenAnswerId?: number;
+    givenAnswerId?: string;
+    correctAnswerId?: string;
     hasAnswerBeenGiven: boolean;
-    wasGivenAnswerCorrect: boolean;
+    hasAnswerBeenChecked: boolean;
 };

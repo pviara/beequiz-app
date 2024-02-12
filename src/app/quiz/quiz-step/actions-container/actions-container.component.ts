@@ -10,7 +10,9 @@ export class ActionsContainerComponent {
     givenAnswerState = input.required<GivenAnswerState>();
 
     noAnswerSelected = input.required<boolean>();
-    
+
+    private confirmButtonClicked = false;
+
     @Output()
     answerConfirmed = new EventEmitter<never>();
 
@@ -18,10 +20,24 @@ export class ActionsContainerComponent {
     nextStepRequested = new EventEmitter<never>();
 
     confirmAnswer(): void {
+        this.toggleConfirmButtonClicked();
         this.answerConfirmed.emit();
     }
 
     goToNextStep(): void {
+        this.toggleConfirmButtonClicked();
         this.nextStepRequested.emit();
+    }
+
+    mustConfirmButtonBeDisabled(): boolean {
+        return this.noAnswerSelected() || this.confirmButtonClicked;
+    }
+
+    mustNextButtonBeDisabled(): boolean {
+        return !this.givenAnswerState().hasAnswerBeenChecked;
+    }
+
+    private toggleConfirmButtonClicked() {
+        this.confirmButtonClicked = !this.confirmButtonClicked;
     }
 }

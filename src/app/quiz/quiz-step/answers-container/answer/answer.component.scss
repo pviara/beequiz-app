@@ -23,6 +23,12 @@
             transform: scale(1);
         }
 
+        &.correct,
+        &.incorrect,
+        &.selected {
+            color: #fff;
+        }
+
         &.correct {
             background: rgb(69, 198, 52);
             background: linear-gradient(
@@ -48,8 +54,6 @@
                 rgba(37, 44, 45, 1) 0%,
                 rgba(54, 62, 67, 1) 100%
             );
-
-            color: #fff;
         }
     }
 }

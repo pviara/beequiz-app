@@ -12,19 +12,16 @@ export class AnswersContainerComponent {
 
     givenAnswerState = input.required<GivenAnswerState>();
 
-    selectedAnswerId = input<number>();
+    selectedAnswerId = input<string>();
 
     @Output()
-    answerSelected = new EventEmitter<number>();
+    answerSelected = new EventEmitter<string>();
 
     mustBeSelected(answer: Answer): boolean {
-        return (
-            this.selectedAnswerId() === answer.id &&
-            !this.givenAnswerState().hasAnswerBeenGiven
-        );
+        return this.selectedAnswerId() === answer.id;
     }
 
-    onAnswerSelected(answerId: number): void {
+    onAnswerSelected(answerId: string): void {
         if (this.givenAnswerState().hasAnswerBeenGiven) {
             return;
         }
