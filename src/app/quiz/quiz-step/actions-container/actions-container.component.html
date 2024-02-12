@@ -1,27 +1,14 @@
 <div class="container">
-    <button
-        [disabled]="isConfirmButtonDisabled()"
-        [ngClass]="isConfirmButtonDisabled() ? 'disabled' : 'primary'"
-        (click)="confirmAnswer()">
-
-        @if (givenAnswerState().hasAnswerBeenGiven) {
-
-            @if (givenAnswerState().wasGivenAnswerCorrect) {
-                🥳 Bravo !
-
-            } @else {
-                ❌ Raté !
-            }
-            
-        } @else {
+    @if (givenAnswerState().hasAnswerBeenGiven) {
+        <button (click)="goToNextStep()">
+            Suivant
+        </button>
+    } @else {
+        <button
+            [disabled]="noAnswerSelected()"
+            [ngClass]="{ 'disabled': noAnswerSelected() }"
+            (click)="confirmAnswer()">
             Valider
-        }
-    </button>
-
-    <button
-        [disabled]="isNextButtonDisabled()"
-        [ngClass]="isNextButtonDisabled() ? 'disabled' : 'primary'"
-        (click)="goToNextStep()">
-        Suivant
-    </button>
+        </button>
+    }
 </div>

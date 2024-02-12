@@ -13,8 +13,7 @@
     <div class="actions">
         <actions-container
             [givenAnswerState]="givenAnswerState()"
-            [isConfirmButtonDisabled]="mustConfirmButtonBeDisabled()"
-            [isNextButtonDisabled]="mustNextButtonBeDisabled()"
+            [noAnswerSelected]="noAnswerSelected()"
             (answerConfirmed)="onAnswerConfirmed()"
             (nextStepRequested)="onNextStepRequested()">
         </actions-container>

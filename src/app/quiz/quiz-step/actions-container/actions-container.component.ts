@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, input } from '@angular/core';
+import { Component, EventEmitter, Output, input } from '@angular/core';
 import { GivenAnswerState } from '../model/given-answer-state';
 
 @Component({
@@ -9,10 +9,8 @@ import { GivenAnswerState } from '../model/given-answer-state';
 export class ActionsContainerComponent {
     givenAnswerState = input.required<GivenAnswerState>();
 
-    isConfirmButtonDisabled = input.required<boolean>();
-
-    isNextButtonDisabled = input.required<boolean>();
-
+    noAnswerSelected = input.required<boolean>();
+    
     @Output()
     answerConfirmed = new EventEmitter<never>();
 

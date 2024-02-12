@@ -33,6 +33,10 @@ export class QuizStepComponent {
         return !this.givenAnswerState().hasAnswerBeenGiven;
     }
 
+    noAnswerSelected(): boolean {
+        return this.selectedAnswerId === undefined;
+    }
+
     onAnswerConfirmed(): void {
         this.confirmedAnswer.emit(this.selectedAnswerId);
     }
@@ -48,10 +52,6 @@ export class QuizStepComponent {
     onNextStepRequested(): void {
         this.resetSelectedAnswer();
         this.nextStepRequested.emit();
-    }
-
-    private noAnswerSelected(): boolean {
-        return this.selectedAnswerId === undefined;
     }
 
     private resetSelectedAnswer(): void {
