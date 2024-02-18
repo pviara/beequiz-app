@@ -1,6 +1,6 @@
 import { Answer, Question, Quiz } from '../model/quiz';
 import { AuthService } from './auth.service';
-import { BehaviorSubject, Observable, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Observable, map, of, switchMap, tap } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
@@ -33,16 +33,31 @@ export class QuizService {
         );
     }
 
-    killQuiz(): Observable<void> {
-        const userId = this.authService.signedInUser?.user.id;
-        return this.httpClient
-            .delete<void>(`${this.apiEndpoint}?userId=${userId}`)
-            .pipe(
+    quitGame({ bypassApiCall }: { bypassApiCall: boolean }): Observable<null> {
+        if (bypassApiCall) {
+            return of(null).pipe(
                 tap(() => {
                     this.generatedQuiz.next(null);
                     this.hasQuizBeenRequested = false;
                 }),
             );
+        } else {
+            const userId = this.authService.signedInUser?.user.id;
+
+            return this.httpClient
+                .delete<null>(`${this.apiEndpoint}?userId=${userId}`, {
+                    headers: {
+                        Authorization: `Bearer ${this.authService.signedInUser?.token}`,
+                    },
+                })
+                .pipe(
+                    tap(() => {
+                        this.generatedQuiz.next(null);
+                        this.hasQuizBeenRequested = false;
+                    }),
+                    switchMap(() => of(null)),
+                );
+        }
     }
 
     launchQuizGeneration(

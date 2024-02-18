@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { delay } from 'rxjs';
 import { GivenAnswerState } from './quiz-step/model/given-answer-state';
 import { NavigationService } from '../core/services/navigation.service';
 import { Quiz } from '../core/model/quiz';
 import { QuizService } from '../core/services/quiz-service';
 import { Router } from '@angular/router';
-import { delay, tap } from 'rxjs';
 
 @Component({
     selector: 'quiz',
@@ -39,9 +39,9 @@ export class QuizComponent implements OnDestroy, OnInit {
         });
     }
 
-    exitQuiz(): void {
+    forceExitQuiz(): void {
         this.quizService
-            .killQuiz()
+            .quitGame({ bypassApiCall: false })
             .subscribe(() => this.router.navigate(['/home']));
     }
 
@@ -55,14 +55,14 @@ export class QuizComponent implements OnDestroy, OnInit {
     }
 
     onExistQuizRequested(): void {
-        this.exitQuiz();
+        this.quizService
+            .quitGame({ bypassApiCall: true })
+            .subscribe(() => this.router.navigate(['/home']));
     }
 
     onNextStepRequested(): void {
-        console.log('next step requested');
-
         if (this.quiz.hasQuizBeenCompleted()) {
-            this.exitQuiz();
+            this.forceExitQuiz();
             return;
         }
 
@@ -86,7 +86,7 @@ export class QuizComponent implements OnDestroy, OnInit {
     private handleAnsweredQuestion(answerId: string): void {
         this.quizService
             .answerQuestion(answerId, this.quiz.getCurrentQuestionId())
-            .pipe(delay(200))
+            .pipe(delay(100))
             .subscribe(({ correctAnswerId, isCorrect }) => {
                 this.markAnswerAsChecked();
 

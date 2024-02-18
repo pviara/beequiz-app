@@ -71,7 +71,6 @@ export class Quiz {
     }
 
     hasQuizBeenCompleted(): boolean {
-        console.log(this.givenAnswers.length === this.questions.length);
         return this.givenAnswers.length === this.questions.length;
     }
 

@@ -1,12 +1,5 @@
-import {
-    ActivatedRoute,
-    ActivatedRouteSnapshot,
-    CanActivateFn,
-    Navigation,
-    Router,
-    RouterStateSnapshot,
-} from '@angular/router';
 import { AuthService } from '../core/services/auth.service';
+import { CanActivateFn, Navigation, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { of } from 'rxjs';
 import { QuizService } from '../core/services/quiz-service';
