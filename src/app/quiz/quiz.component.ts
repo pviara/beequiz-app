@@ -40,8 +40,9 @@ export class QuizComponent implements OnDestroy, OnInit {
     }
 
     exitQuiz(): void {
-        this.quizService.killQuiz();
-        this.router.navigate(['/home']);
+        this.quizService
+            .killQuiz()
+            .subscribe(() => this.router.navigate(['/home']));
     }
 
     hasQuizBeenLoaded(): boolean {

@@ -33,9 +33,16 @@ export class QuizService {
         );
     }
 
-    killQuiz(): void {
-        this.generatedQuiz.next(null);
-        this.hasQuizBeenRequested = false;
+    killQuiz(): Observable<void> {
+        const userId = this.authService.signedInUser?.user.id;
+        return this.httpClient
+            .delete<void>(`${this.apiEndpoint}?userId=${userId}`)
+            .pipe(
+                tap(() => {
+                    this.generatedQuiz.next(null);
+                    this.hasQuizBeenRequested = false;
+                }),
+            );
     }
 
     launchQuizGeneration(
