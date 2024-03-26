@@ -47,7 +47,7 @@ export function app(): express.Express {
 }
 
 function run(): void {
-    const port = 6000;
+    const port = 4001;
 
     // Start up the Node server
     const server = app();
